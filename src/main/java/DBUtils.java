@@ -1,12 +1,22 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+
 
 public class DBUtils {
-    String dbURL = "jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpatth:init.sql'";
+    private static String dbURL = "jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:init.sql'";
+    private static String dbUsername = "sa";
+    private static String dbPassword = "";
+
     public static Connection getConnection() {
+
         Connection connection = null;
-        connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
-
-
+        try {
+            connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return connection;
     }
+
 }
