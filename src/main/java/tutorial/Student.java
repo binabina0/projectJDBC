@@ -1,3 +1,5 @@
+package tutorial;
+
 public class Student {
     private int id;
     private String name;
@@ -7,7 +9,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "tutorial.Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +

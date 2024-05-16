@@ -1,3 +1,7 @@
+package tutorial;
+
+import tutorial.DBUtils;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
