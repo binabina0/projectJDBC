@@ -1,88 +1,106 @@
 CREATE SCHEMA IF NOT EXISTS list;
 USE list;
 
--- Drop the table if it already exists
-DROP TABLE IF EXISTS Equipment;
-
--- Create Equipment Table
-CREATE TABLE Equipment (
-    EquipmentID INT PRIMARY KEY AUTO_INCREMENT,
-    SerialNumber VARCHAR(50) NOT NULL UNIQUE,
-    EquipmentName VARCHAR(100) NOT NULL,
-    Category VARCHAR(100) NOT NULL,
-    Quantity INT NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL,
-    TotalPrice DECIMAL(10, 2) GENERATED ALWAYS AS (Quantity * Price) STORED,
-    PurchaseDate DATE NOT NULL
+DROP TABLE IF EXISTS SchoolEquipment;
+-- Create the table
+CREATE TABLE SchoolEquipment (
+    id SERIAL PRIMARY KEY,
+    serial_number VARCHAR(50),
+    equipment_name VARCHAR(100),
+    category VARCHAR(50),
+    quantity INT,
+    price DECIMAL(10, 2),
+    delivery_rate DECIMAL(10, 2) GENERATED ALWAYS AS (0.02 * price) STORED,
+    total_price DECIMAL(10, 2) GENERATED ALWAYS AS (price + (0.02 * price)) STORED,
+    purchase_date DATE
 );
 
--- Insert sample data into Equipment Table
-INSERT INTO Equipment (SerialNumber, EquipmentName, Category, Quantity, Price, PurchaseDate)
-VALUES
-('SN123456', 'Dell Laptop', 'Computer', 10, 500.00, '2023-01-15'),
-('SN654321', 'Epson Projector', 'Projector', 5, 300.00, '2022-11-10'),
-('SN111222', 'Office Desk', 'Furniture', 15, 150.00, '2021-05-22'),
-('SN333444', 'Office Chair', 'Furniture', 20, 75.00, '2020-07-30')
-('SN555666', 'HP Desktop PC', 'Computer', 8, 700.00, '2023-03-20'),
-('SN777888', 'Optoma Projector', 'Projector', 3, 600.00, '2022-09-05'),
-('SN999000', 'Teachers Desk', 'Furniture', 5, 200.00, '2021-10-12'),
-('SN112233', 'Student Desk', 'Furniture', 50, 50.00, '2020-12-01')
-('SN444555', 'Lenovo ThinkPad', 'Computer', 15, 600.00, '2023-02-10'),
-('SN666777', 'Sony Digital Camera', 'Electronics', 7, 400.00, '2022-08-15'),
-('SN888999', 'Samsung Smartboard', 'Electronics', 4, 1200.00, '2021-11-25'),
-('SN000111', 'Library Shelf', 'Furniture', 10, 100.00, '2020-09-20');
+-- Sample insert statements
+INSERT INTO SchoolEquipment (serial_number, equipment_name, category, quantity, price, purchase_date) VALUES
+('SN001', 'Projector', 'Electronics', 5, 500.00, '2024-05-01'),
+('SN002', 'Whiteboard', 'Furniture', 10, 150.00, '2024-05-02'),
+('SN003', 'Laptop', 'Electronics', 15, 800.00, '2024-05-03'),
+('SN004', 'Desk', 'Furniture', 20, 100.00, '2024-05-04'),
+('SN005', 'Printer', 'Electronics', 8, 300.00, '2024-05-05'),
+('SN006', 'Chair', 'Furniture', 25, 50.00, '2024-05-06'),
+('SN007', 'Microscope', 'Science Equipment', 3, 1200.00, '2024-05-07'),
+('SN008', 'Bookshelf', 'Furniture', 6, 200.00, '2024-05-08'),
+('SN009', 'Desktop Computer', 'Electronics', 12, 1000.00, '2024-05-09'),
+('SN010', 'Globe', 'Educational', 2, 80.00, '2024-05-10'),
+('SN011', 'Calculator', 'Electronics', 30, 20.00, '2024-05-11'),
+('SN012', 'Table', 'Furniture', 15, 120.00, '2024-05-12'),
+('SN013', 'Projector Screen', 'Electronics', 5, 100.00, '2024-05-13'),
+('SN014', 'Markers', 'Stationery', 50, 5.00, '2024-05-14'),
+('SN015', 'Soccer Ball', 'Sports Equipment', 12, 15.00, '2024-05-15'),
+('SN016', 'Lab Coat', 'Clothing', 20, 25.00, '2024-05-16'),
+('SN017', 'Safety Goggles', 'Safety Equipment', 18, 8.00, '2024-05-17'),
+('SN018', 'Musical Instruments', 'Arts', 7, 200.00, '2024-05-18'),
+('SN019', 'Textbooks', 'Books', 40, 30.00, '2024-05-19'),
+('SN020', 'Gym Equipment', 'Sports Equipment', 10, 400.00, '2024-05-20');
 
--- Drop the table if it already exists
-DROP TABLE IF EXISTS OrderedEquipment;
-
--- Create OrderedEquipment Table
-CREATE TABLE OrderedEquipment (
-    OrderID INT PRIMARY KEY AUTO_INCREMENT,
-    SerialNumber VARCHAR(50) NOT NULL UNIQUE,
-    EquipmentName VARCHAR(100) NOT NULL,
-    Category VARCHAR(100) NOT NULL,
-    Quantity INT NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL,
-    TotalPrice DECIMAL(10, 2) GENERATED ALWAYS AS (Quantity * Price) STORED,
-    OrderDate DATE NOT NULL
+DROP TABLE IF EXISTS OrderedSchoolEquipment;
+-- Create the table
+CREATE TABLE OrderedSchoolEquipment (
+    id SERIAL PRIMARY KEY,
+    serial_number VARCHAR(50),
+    equipment_name VARCHAR(100),
+    category VARCHAR(50),
+    quantity INT,
+    price DECIMAL(10, 2),
+    delivery_rate DECIMAL(10, 2) GENERATED ALWAYS AS (0.02 * price) STORED,
+    total_price DECIMAL(10, 2) GENERATED ALWAYS AS (price + (0.02 * price)) STORED,
+    ordered_date DATE
 );
 
--- Insert sample data into OrderedEquipment Table
-INSERT INTO OrderedEquipment (SerialNumber, EquipmentName, Category, Quantity, Price, OrderDate)
-VALUES
-('SN987654', 'HP Printer', 'Office Supplies', 3, 200.00, '2024-05-15'),
-('SN654987', 'Epson Scanner', 'Office Supplies', 2, 150.00, '2024-05-15'),
-('SN123789', 'BenQ Monitor', 'Computer Accessories', 5, 250.00, '2024-05-15');
+-- Sample insert statements
+INSERT INTO OrderedSchoolEquipment (serial_number, equipment_name, category, quantity, price, ordered_date) VALUES
+('SN021', 'Laptop', 'Electronics', 5, 800.00, '2024-05-01'),
+('SN022', 'Desk', 'Furniture', 2, 100.00, '2024-05-02'),
+('SN023', 'Projector', 'Electronics', 3, 500.00, '2024-05-03'),
+('SN024', 'Whiteboard', 'Furniture', 1, 150.00, '2024-05-04'),
+('SN025', 'Microscope', 'Science Equipment', 2, 1200.00, '2024-05-05'),
+('SN026', 'Printer', 'Electronics', 4, 300.00, '2024-05-06'),
+('SN027', 'Chair', 'Furniture', 3, 50.00, '2024-05-07'),
+('SN028', 'Bookshelf', 'Furniture', 2, 200.00, '2024-05-08'),
+('SN029', 'Desktop Computer', 'Electronics', 3, 1000.00, '2024-05-09'),
+('SN030', 'Projector Screen', 'Electronics', 2, 100.00, '2024-05-10');
+
 
 -- Drop the table if it already exists
 DROP TABLE IF EXISTS DeliveredEquipment;
 
--- Create DeliveredEquipment Table
-CREATE TABLE DeliveredEquipment (
-    DeliveryID INT PRIMARY KEY AUTO_INCREMENT,
-    SerialNumber VARCHAR(50) NOT NULL UNIQUE,
-    EquipmentName VARCHAR(100) NOT NULL,
-    Category VARCHAR(100) NOT NULL,
-    Quantity INT NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL,
-    TotalPrice DECIMAL(10, 2) GENERATED ALWAYS AS (Quantity * Price) STORED,
-    DeliveryDate DATE NOT NULL
+-- Create the table
+CREATE TABLE DeliveredSchoolEquipment (
+    id SERIAL PRIMARY KEY,
+    serial_number VARCHAR(50),
+    equipment_name VARCHAR(100),
+    category VARCHAR(50),
+    quantity INT,
+    price DECIMAL(10, 2),
+    delivery_rate DECIMAL(10, 2) GENERATED ALWAYS AS (0.02 * price) STORED,
+    total_price DECIMAL(10, 2) GENERATED ALWAYS AS (price + (0.02 * price)) STORED,
+    delivered_date DATE
 );
 
--- Insert sample data into DeliveredEquipment Table
-INSERT INTO DeliveredEquipment (SerialNumber, EquipmentName, Category, Quantity, Price, DeliveryDate)
-VALUES
-('SN123456', 'Dell Laptop', 'Computer', 10, 500.00, '2023-01-15'),
-('SN654321', 'Epson Projector', 'Projector', 5, 300.00, '2022-11-10'),
-('SN111222', 'Office Desk', 'Furniture', 15, 150.00, '2021-05-22'),
-('SN333444', 'Office Chair', 'Furniture', 20, 75.00, '2020-07-30')
-('SN555666', 'HP Desktop PC', 'Computer', 8, 700.00, '2023-03-20'),
-('SN777888', 'Optoma Projector', 'Projector', 3, 600.00, '2022-09-05'),
-('SN999000', 'Teachers Desk', 'Furniture', 5, 200.00, '2021-10-12'),
-('SN112233', 'Student Desk', 'Furniture', 50, 50.00, '2020-12-01')
-('SN444555', 'Lenovo ThinkPad', 'Computer', 15, 600.00, '2023-02-10'),
-('SN666777', 'Sony Digital Camera', 'Electronics', 7, 400.00, '2022-08-15'),
-('SN888999', 'Samsung Smartboard', 'Electronics', 4, 1200.00, '2021-11-25'),
-('SN000111', 'Library Shelf', 'Furniture', 10, 100.00, '2020-09-20');
-
-
+-- Sample insert statements
+INSERT INTO DeliveredSchoolEquipment (serial_number, equipment_name, category, quantity, price, delivered_date) VALUES
+('SN001', 'Projector', 'Electronics', 5, 500.00, '2024-05-01'),
+('SN002', 'Whiteboard', 'Furniture', 10, 150.00, '2024-05-02'),
+('SN003', 'Laptop', 'Electronics', 15, 800.00, '2024-05-03'),
+('SN004', 'Desk', 'Furniture', 20, 100.00, '2024-05-04'),
+('SN005', 'Printer', 'Electronics', 8, 300.00, '2024-05-05'),
+('SN006', 'Chair', 'Furniture', 25, 50.00, '2024-05-06'),
+('SN007', 'Microscope', 'Science Equipment', 3, 1200.00, '2024-05-07'),
+('SN008', 'Bookshelf', 'Furniture', 6, 200.00, '2024-05-08'),
+('SN009', 'Desktop Computer', 'Electronics', 12, 1000.00, '2024-05-09'),
+('SN010', 'Globe', 'Educational', 2, 80.00, '2024-05-10'),
+('SN011', 'Calculator', 'Electronics', 30, 20.00, '2024-05-11'),
+('SN012', 'Table', 'Furniture', 15, 120.00, '2024-05-12'),
+('SN013', 'Projector Screen', 'Electronics', 5, 100.00, '2024-05-13'),
+('SN014', 'Markers', 'Stationery', 50, 5.00, '2024-05-14'),
+('SN015', 'Soccer Ball', 'Sports Equipment', 12, 15.00, '2024-05-15'),
+('SN016', 'Lab Coat', 'Clothing', 20, 25.00, '2024-05-16'),
+('SN017', 'Safety Goggles', 'Safety Equipment', 18, 8.00, '2024-05-17'),
+('SN018', 'Musical Instruments', 'Arts', 7, 200.00, '2024-05-18'),
+('SN019', 'Textbooks', 'Books', 40, 30.00, '2024-05-19'),
+('SN020', 'Gym Equipment', 'Sports Equipment', 10, 400.00, '2024-05-20');
