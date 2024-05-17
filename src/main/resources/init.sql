@@ -1,6 +1,18 @@
 CREATE SCHEMA IF NOT EXISTS list;
 USE list;
 
+DROP TABLE IF EXISTS Zavkhoz;
+CREATE TABLE Zavkhoz (id BIGINT PRIMARY KEY AUTO_INCREMENT, zavkhoz_username VARCHAR(80),zavkhoz_password VARCHAR(80));
+INSERT INTO Zavkhoz (zavkhoz_username,zavkhoz_password) VALUES ('zavkhoz','zavkhoz123');
+
+DROP TABLE IF EXISTS Deliveryman;
+CREATE TABLE Deliveryman (id BIGINT PRIMARY KEY AUTO_INCREMENT, deliveryman_username VARCHAR(80),deliveryman_password VARCHAR(80));
+INSERT INTO Deliveryman (deliveryman_username,deliveryman_password) VALUES ('deliveryman','deliveryman123');
+
+DROP TABLE IF EXISTS Director;
+CREATE TABLE Director (id BIGINT PRIMARY KEY AUTO_INCREMENT, director_username VARCHAR(80),director_password VARCHAR(80));
+INSERT INTO Director (director_username,director_password) VALUES ('director','director123');
+
 DROP TABLE IF EXISTS SchoolEquipment;
 -- Create the table
 CREATE TABLE SchoolEquipment (

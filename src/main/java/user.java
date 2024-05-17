@@ -1,5 +1,3 @@
-package user;
-
 public class user {
     protected String userName;
     public String password;
