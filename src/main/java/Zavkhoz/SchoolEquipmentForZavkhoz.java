@@ -1,31 +1,25 @@
-package equipments;
+package Zavkhoz;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
-public class SchoolEquipment {
+public class SchoolEquipmentForZavkhoz {
     private int id;
     private String serialNumber;
     private String equipmentName;
     private String category;
     private int quantity;
-    private BigDecimal price;
-    private BigDecimal deliveryRate;
-    private BigDecimal totalPrice;
     private Date purchaseDate;
 
-    public SchoolEquipment() {
+    public SchoolEquipmentForZavkhoz() {
     }
 
-    public SchoolEquipment(int id, String serialNumber, String equipmentName, String category, int quantity, BigDecimal price, BigDecimal deliveryRate, BigDecimal totalPrice, Date purchaseDate) {
+    public SchoolEquipmentForZavkhoz(int id, String serialNumber, String equipmentName, String category, int quantity, Date purchaseDate) {
         this.id = id;
         this.serialNumber = serialNumber;
         this.equipmentName = equipmentName;
         this.category = category;
         this.quantity = quantity;
-        this.price = price;
-        this.deliveryRate = deliveryRate;
-        this.totalPrice = totalPrice;
         this.purchaseDate = purchaseDate;
     }
 
@@ -69,30 +63,6 @@ public class SchoolEquipment {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getDeliveryRate() {
-        return deliveryRate;
-    }
-
-    public void setDeliveryRate(BigDecimal deliveryRate) {
-        this.deliveryRate = deliveryRate;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
     public Date getPurchaseDate() {
         return purchaseDate;
     }
@@ -109,9 +79,6 @@ public class SchoolEquipment {
                 ", equipmentName='" + equipmentName + '\'' +
                 ", category='" + category + '\'' +
                 ", quantity=" + quantity +
-                ", price=" + price +
-                ", deliveryRate=" + deliveryRate +
-                ", totalPrice=" + totalPrice +
                 ", purchaseDate=" + purchaseDate +
                 '}';
     }
