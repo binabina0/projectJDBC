@@ -1,4 +1,5 @@
-public class user {
+0public class user {
+    
     protected String userName;
     public String password;
 
