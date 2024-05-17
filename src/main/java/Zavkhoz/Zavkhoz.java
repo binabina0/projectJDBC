@@ -1,6 +1,51 @@
 package Zavkhoz;
 
-public class Zavkhoz extends user {
+public class Zavkhoz {
+    private int id;
+    private String zavkhozUsername;
+    private String zavkhozPassword;
+
+    public Zavkhoz() {
+    }
+
+    public Zavkhoz(int id, String zavkhozUsername, String zavkhozPassword) {
+        this.id = id;
+        this.zavkhozUsername = zavkhozUsername;
+        this.zavkhozPassword = zavkhozPassword;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getZavkhozUsername() {
+        return zavkhozUsername;
+    }
+
+    public void setZavkhozUsername(String zavkhozUsername) {
+        this.zavkhozUsername = zavkhozUsername;
+    }
+
+    public String getZavkhozPassword() {
+        return zavkhozPassword;
+    }
+
+    public void setZavkhozPassword(String zavkhozPassword) {
+        this.zavkhozPassword = zavkhozPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "Zavkhoz{" +
+                "id=" + id +
+                ", zavkhozUsername='" + zavkhozUsername + '\'' +
+                ", zavkhozPassword='" + zavkhozPassword + '\'' +
+                '}';
+    }
     public static void menu() {
         System.out.println("1.\tShow the entire list of school equipment\n" +
                 "2.\tSearch equipment:\n" +
@@ -19,4 +64,7 @@ public class Zavkhoz extends user {
                 "7.\tWhat equipment would you like to remove? >>> (Deletes equipment from the Ordered Equipment file)\n" +
                 "8.\tExit\n");
     }
+
+
+
 }

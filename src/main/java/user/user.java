@@ -1,11 +1,13 @@
-0public class user {
-    
+package user;
+
+public class user {
+
     protected String userName;
     public String password;
 
     @Override
     public String toString() {
-        return "user{" +
+        return "user.user{" +
                 "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
