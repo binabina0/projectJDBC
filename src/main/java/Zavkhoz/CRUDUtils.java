@@ -89,10 +89,14 @@ public class CRUDUtils {
         return schoolEquipments;
     }
 
-        public static List<SchoolEquipmentForZavkhoz> getSearchedEquipmentByName (SchoolEquipmentForZavkhoz equipment){
+        public static List<SchoolEquipmentForZavkhoz> getSearchedEquipmentByName (String equipment){
             List<SchoolEquipmentForZavkhoz> searchedEquipments = new ArrayList<>();
             try (Connection connection = DBUtils.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_EQUIPMENT)) {
+
+                preparedStatement.setString(1, equipment);
+                preparedStatement.executeQuery();
+
                 ResultSet rs = preparedStatement.executeQuery();
 
                 while (rs.next()) {
@@ -109,12 +113,15 @@ public class CRUDUtils {
             }
             return searchedEquipments;
         }
-    public static List<SchoolEquipmentForZavkhoz> getSearchedEquipmentBySerialNumber (SchoolEquipmentForZavkhoz equipment){
+    public static List<SchoolEquipmentForZavkhoz> getSearchedEquipmentBySerialNumber (String equipment){
         List<SchoolEquipmentForZavkhoz> searchedEquipments = new ArrayList<>();
         try (Connection connection = DBUtils.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_SERIAL_NUMBER)) {
-            ResultSet rs = preparedStatement.executeQuery();
 
+            preparedStatement.setString(1, equipment);
+            preparedStatement.executeQuery();
+
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String serialNumber = rs.getString("serial_number");

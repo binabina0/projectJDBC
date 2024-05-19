@@ -58,10 +58,8 @@ public class Zavkhoz {
         System.out.println("1.\tShow the entire list of school equipment\n" +
                 "2.\tSearch equipment:\n" +
                 "•\tBy serial number\n" +
-                "•\tEnter your serial number to search:>>\n" +
                 "\n" +
                 "•\tBy name\n" +
-                "•\tWrite the name of the equipment to search:>>\n" +
                 "3.\tShow equipment report\n" +
                 "4.\tPlace an order for equipment:\n" +
                 "•\tPlease write what equipment you would like to order:\n" +
@@ -129,21 +127,16 @@ public class Zavkhoz {
                 scan.nextLine();
             }
             if(subChoice == 1){
-                System.out.println("Enter your serial number to search");
-                String
+                System.out.println("Enter your serial number to search:");
+                String serialNumber = scan.nextLine();
+                System.out.println(CRUDUtils.getSearchedEquipmentBySerialNumber(serialNumber));
+            } else if (subChoice == 2) {
+                System.out.println("Write the name of the equipment to search:");
+                String equipmentName = scan.nextLine();
+                System.out.println(CRUDUtils.getSearchedEquipmentByName(equipmentName));
             }
-        } else if (adminsChoise == 1) {
-            System.out.println("Enter student's id number you want to update :");
-            int id = scan.nextInt();
-            scan.nextLine();
-            System.out.println("Enter username you want to set:");
-            String username = scan.nextLine();
-            System.out.println("Enter password you want to set:");
-            String password = scan.nextLine();
-            List<student> updateStudent = adminCRUDUtils.updateStudentProfile(id, username, password);
-            for (int i = 0; i < updateStudent.size(); i++) {
-                System.out.println(updateStudent.get(i));
+        } else if (zavkhozChoise == 1) {
+            System.out.println("The entire list of school equipment\n" + CRUDUtils.listOfEquipment());
             }
         }
     }
-}
