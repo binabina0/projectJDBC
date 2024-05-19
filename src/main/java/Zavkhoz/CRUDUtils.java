@@ -42,7 +42,33 @@ public class CRUDUtils {
         return schoolEquipments;
     }
 
-    public static List<ListOfEquipments> getListOfEquipment() {
+    public static List<SchoolEquipment> allEquipmentData() {
+        List<SchoolEquipment> schoolEquipments = new ArrayList<>();
+
+        try (Connection connection = DBUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_EQUIPMENT)) {
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String serialNumber = rs.getString("serial_number");
+                String equipmentName = rs.getString("equipment_name");
+                String category = rs.getString("category");
+                int quantity = rs.getInt("quantity");
+                BigDecimal price = rs.getBigDecimal("price");
+                BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
+                BigDecimal totalPrice = rs.getBigDecimal("total_price");
+                Date purchaseDate = rs.getDate("purchase_date");
+
+                schoolEquipments.add(new SchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, purchaseDate));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return schoolEquipments;
+    }
+
+    public static List<ListOfEquipments> listOfEquipment() {
         List<ListOfEquipments> schoolEquipments = new ArrayList<>();
 
         try (Connection connection = DBUtils.getConnection();
@@ -114,9 +140,9 @@ public class CRUDUtils {
             preparedStatement.setString(2, equipment.getEquipmentName());
             preparedStatement.setString(3, equipment.getCategory());
             preparedStatement.setInt(4, equipment.getQuantity());
-            preparedStatement.setBigDecimal(5, BigDecimal.valueOf(0));
-            preparedStatement.setBigDecimal(6, BigDecimal.valueOf(0));
-            preparedStatement.setBigDecimal(7, BigDecimal.valueOf(0));
+            preparedStatement.setBigDecimal(5, equipment.getPrice());
+            preparedStatement.setBigDecimal(6, equipment.getDeliveryRate());
+            preparedStatement.setBigDecimal(7, equipment.getTotalPrice());
             preparedStatement.setDate(8, equipment.getOrderedDate());
             preparedStatement.executeUpdate();
 
@@ -142,7 +168,7 @@ public class CRUDUtils {
         }
         return equipments;
     }
-    public static List<OrderedSchoolEquipment> getOrderedEquipmentData(String query) {
+    public static List<OrderedSchoolEquipment> getOrderedEquipmentData() {
         List<OrderedSchoolEquipment> schoolEquipments = new ArrayList<>();
 
         try (Connection connection = DBUtils.getConnection();

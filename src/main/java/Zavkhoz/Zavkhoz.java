@@ -1,5 +1,13 @@
 package Zavkhoz;
 
+import equipments.OrderedSchoolEquipment;
+import equipments.SchoolEquipment;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.List;
+import java.util.Scanner;
+
 public class Zavkhoz {
     private int id;
     private String zavkhozUsername;
@@ -51,20 +59,91 @@ public class Zavkhoz {
                 "2.\tSearch equipment:\n" +
                 "•\tBy serial number\n" +
                 "•\tEnter your serial number to search:>>\n" +
-                "(Then a list of equipment by serial number is displayed)\n" +
                 "\n" +
                 "•\tBy name\n" +
                 "•\tWrite the name of the equipment to search:>>\n" +
-                "(Then a list of equipment is displayed)\n" +
-                "3.\tShow equipment report (Shows the entire list of equipment that is available, indicating the quantity and year it was purchased)\n" +
+                "3.\tShow equipment report\n" +
                 "4.\tPlace an order for equipment:\n" +
-                "•\tPlease write what equipment you would like to order: (The name of the equipment to be ordered is indicated here, after which this specified name of the equipment is recorded in a separate file “Ordered Equipment”)\n" +
-                "5.\tView the list of ordered equipment (Shows the entire list of ordered equipment from the “Ordered Equipment” file)\n" +
+                "•\tPlease write what equipment you would like to order:\n" +
+                "5.\tView the list of ordered equipment\n" +
                 "6.\tDelete order:\n" +
-                "7.\tWhat equipment would you like to remove? >>> (Deletes equipment from the Ordered Equipment file)\n" +
-                "8.\tExit\n");
+                "7.\tExit\n");
     }
 
+    public static void zavkhozActions(int zavkhozChoise) {
+        Scanner scan = new Scanner(System.in);
 
+        if (zavkhozChoise == 6) {
+            System.out.println("What equipment would you like to remove?");
+            String equipment = scan.next();
+            System.out.println(CRUDUtils.deleteEquipment(equipment));
 
+        } else if (zavkhozChoise == 5) {
+            System.out.println("Ordered School Equipment Details:\n" + CRUDUtils.getOrderedEquipmentData());
+        } else if (zavkhozChoise == 4) {
+            System.out.println("Please write what equipment you would like to order");
+            System.out.print("Enter serial number: ");
+            String serialNumber = scan.nextLine();
+
+            System.out.print("Enter equipment name: ");
+            String equipmentName = scan.nextLine();
+
+            System.out.print("Enter category: ");
+            String category = scan.nextLine();
+
+            System.out.print("Enter quantity: ");
+            int quantity = scan.nextInt();
+
+            System.out.print("Enter price: ");
+            BigDecimal price = BigDecimal.valueOf(scan.nextDouble());
+
+            System.out.print("Enter delivery rate: ");
+            BigDecimal deliveryRate = BigDecimal.valueOf(scan.nextDouble());
+
+            System.out.print("Enter total price: ");
+            BigDecimal totalPrice = BigDecimal.valueOf(scan.nextDouble());
+
+            System.out.print("Enter ordered date (yyyy-mm-dd): ");
+            String orderedDateString = scan.next();
+            Date orderedDate = Date.valueOf(orderedDateString);
+
+            OrderedSchoolEquipment equipment = new OrderedSchoolEquipment();
+            equipment.setSerialNumber(serialNumber);
+            equipment.setEquipmentName(equipmentName);
+            equipment.setCategory(category);
+            equipment.setQuantity(quantity);
+            equipment.setPrice(price);
+            equipment.setDeliveryRate(deliveryRate);
+            equipment.setTotalPrice(totalPrice);
+            equipment.setOrderedDate(orderedDate);
+            System.out.println(CRUDUtils.saveOrderedEquipment(equipment));
+        } else if (zavkhozChoise == 3) {
+            System.out.println("Equipment report:\n" + CRUDUtils.allEquipmentData());
+        } else if (zavkhozChoise == 2) {
+            System.out.println("1.\tBy serial number\n" + "2.\tBy name");
+            int subChoice = scan.nextInt();
+            while(subChoice>2||subChoice<1)
+            {
+                System.out.println("Enter command only 1 or 2");
+                subChoice = scan.nextInt();
+                scan.nextLine();
+            }
+            if(subChoice == 1){
+                System.out.println("Enter your serial number to search");
+                String
+            }
+        } else if (adminsChoise == 1) {
+            System.out.println("Enter student's id number you want to update :");
+            int id = scan.nextInt();
+            scan.nextLine();
+            System.out.println("Enter username you want to set:");
+            String username = scan.nextLine();
+            System.out.println("Enter password you want to set:");
+            String password = scan.nextLine();
+            List<student> updateStudent = adminCRUDUtils.updateStudentProfile(id, username, password);
+            for (int i = 0; i < updateStudent.size(); i++) {
+                System.out.println(updateStudent.get(i));
+            }
+        }
+    }
 }
