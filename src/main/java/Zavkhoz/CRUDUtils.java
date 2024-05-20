@@ -15,6 +15,7 @@ public class CRUDUtils {
     private static String SELECT_ALL_ORDERED_EQUIPMENT = "SELECT * FROM OrderedEquipment";
     private static String INSERT_EQUIPMENT = "INSERT INTO OrderedSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivery_rate, total_price, purchase_date) VALUES(?, ?, ?, ?, '', '', '', '');";
     private static final String DELETE_EQUIPMENT = "DELETE FROM OrderedEquipment WHERE id = ?";
+    private static final String SELECT_PASSWORD = "SELECT zavkhoz_password WHERE equipment_name = ? FROM Zavkhoz";
 
     public static List<SchoolEquipment> getEquipmentData(String query) {
         List<SchoolEquipment> schoolEquipments = new ArrayList<>();
@@ -87,6 +88,25 @@ public class CRUDUtils {
             throw new RuntimeException(e);
         }
         return schoolEquipments;
+    }
+
+    public static String zavkhozPassword(String zavkhozName) {
+        String password = null;
+        try (Connection connection = DBUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PASSWORD)) {
+
+            preparedStatement.setString(1, zavkhozName);
+            preparedStatement.executeQuery();
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                password = rs.getString("zavkhoz_password");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return password;
     }
 
         public static List<SchoolEquipmentForZavkhoz> getSearchedEquipmentByName (String equipment){

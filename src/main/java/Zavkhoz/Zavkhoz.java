@@ -1,11 +1,7 @@
 package Zavkhoz;
-
 import equipments.OrderedSchoolEquipment;
-import equipments.SchoolEquipment;
-
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.List;
 import java.util.Scanner;
 
 public class Zavkhoz {
