@@ -22,79 +22,6 @@ public class CRUDUtils {
     private static final String DELETE_EQUIPMENT = "DELETE FROM OrderedEquipment WHERE id = ?";
     private static final String SELECT_PASSWORD = "SELECT deliveryman_password FROM Deliveryman WHERE delivery_username = ?";
 
-    public static List<SchoolEquipment> getEquipmentData(String query) {
-        List<SchoolEquipment> schoolEquipments = new ArrayList<>();
-
-        try (Connection connection = DBUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String serialNumber = rs.getString("serial_number");
-                String equipmentName = rs.getString("equipment_name");
-                String category = rs.getString("category");
-                int quantity = rs.getInt("quantity");
-                BigDecimal price = rs.getBigDecimal("price");
-                BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
-                BigDecimal totalPrice = rs.getBigDecimal("total_price");
-                Date purchaseDate = rs.getDate("purchase_date");
-
-                schoolEquipments.add(new SchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, purchaseDate));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return schoolEquipments;
-    }
-
-    public static List<SchoolEquipment> allEquipmentData() {
-        List<SchoolEquipment> schoolEquipments = new ArrayList<>();
-
-        try (Connection connection = DBUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_EQUIPMENT)) {
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String serialNumber = rs.getString("serial_number");
-                String equipmentName = rs.getString("equipment_name");
-                String category = rs.getString("category");
-                int quantity = rs.getInt("quantity");
-                BigDecimal price = rs.getBigDecimal("price");
-                BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
-                BigDecimal totalPrice = rs.getBigDecimal("total_price");
-                Date purchaseDate = rs.getDate("purchase_date");
-
-                schoolEquipments.add(new SchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, purchaseDate));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return schoolEquipments;
-    }
-
-    public static List<ListOfEquipments> listOfEquipment() {
-        List<ListOfEquipments> schoolEquipments = new ArrayList<>();
-
-        try (Connection connection = DBUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_EQUIPMENT)) {
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String serialNumber = rs.getString("serial_number");
-                String equipmentName = rs.getString("equipment_name");
-                String category = rs.getString("category");
-
-                schoolEquipments.add(new ListOfEquipments(id, serialNumber, equipmentName, category));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return schoolEquipments;
-    }
-
     public static String deliverymanPassword(String deliverymanName) {
         String password = null;
         try (Connection connection = DBUtils.getConnection();
@@ -156,7 +83,7 @@ public class CRUDUtils {
     public static List<DeliveredEquipmentQuantity> getDeliveredEquipmentQuantity (){
         List<DeliveredEquipmentQuantity> deliveredEquipmentQuantities = new ArrayList<>();
         try (Connection connection = DBUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDERED_EQUIPMENT)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_DELIVERED_EQUIPMENT)) {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -164,13 +91,33 @@ public class CRUDUtils {
                 String equipmentName = rs.getString("equipment_name");
                 String category = rs.getString("category");
                 int quantity = rs.getInt("quantity");
-                Date deliveredDate = rs.getDate("purchase_date");
+                Date deliveredDate = rs.getDate("delivered_date");
                 deliveredEquipmentQuantities.add(new DeliveredEquipmentQuantity(id, serialNumber, equipmentName, category, quantity, deliveredDate));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return deliveredEquipmentQuantities;
+    }
+
+    public static List<DeliverymansDeliveryRate> getDeliverymansDeliveryRate(){
+        List<DeliverymansDeliveryRate> deliverymansDeliveryRates = new ArrayList<>();
+        try (Connection connection = DBUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_DELIVERED_EQUIPMENT)) {
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String serialNumber = rs.getString("serial_number");
+                String equipmentName = rs.getString("equipment_name");
+                String category = rs.getString("category");
+                int quantity = rs.getInt("quantity");
+                BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
+                deliverymansDeliveryRates.add(new DeliverymansDeliveryRate(id, serialNumber, equipmentName, category, quantity, deliveryRate));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return deliverymansDeliveryRates;
     }
 
     public static List<DeliveredSchoolEquipment> saveDeliveredEquipment(DeliveredSchoolEquipment equipment) {
@@ -235,37 +182,5 @@ public class CRUDUtils {
             throw new RuntimeException(e);
         }
         return schoolEquipments;
-    }
-
-    public static List<OrderedSchoolEquipment> deleteEquipment(String equipment) {
-        List<OrderedSchoolEquipment> updatedEquipments = new ArrayList<>();
-
-        try (Connection connection = DBUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_EQUIPMENT)) {
-
-            preparedStatement.setString(1, equipment);
-            preparedStatement.executeUpdate();
-
-            PreparedStatement allStudents = connection.prepareStatement("SELECT * FROM students");
-            ResultSet rs = allStudents.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String serialNumber = rs.getString("serial_number");
-                String equipmentName = rs.getString("equipment_name");
-                String category = rs.getString("category");
-                int quantity = rs.getInt("quantity");
-                BigDecimal price = rs.getBigDecimal("price");
-                BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
-                BigDecimal totalPrice = rs.getBigDecimal("total_price");
-                Date orderedDate = rs.getDate("ordered_date");
-
-                updatedEquipments.add(new OrderedSchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, orderedDate));
-            }
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return updatedEquipments;
     }
 }
