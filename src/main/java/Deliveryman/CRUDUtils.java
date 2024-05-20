@@ -133,14 +133,10 @@ public class CRUDUtils {
         }
         return orderedEquipmentsName;
     }
-    public static List<SchoolEquipmentForZavkhoz> getSearchedEquipmentBySerialNumber (String equipment){
-        List<SchoolEquipmentForZavkhoz> searchedEquipments = new ArrayList<>();
+    public static List<OrderedEquipmentQuantity> getOrderedEquipmentQuantity (){
+        List<OrderedEquipmentQuantity> orderedEquipmentQuantities = new ArrayList<>();
         try (Connection connection = DBUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_SERIAL_NUMBER)) {
-
-            preparedStatement.setString(1, equipment);
-            preparedStatement.executeQuery();
-
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDERED_EQUIPMENT)) {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -149,12 +145,12 @@ public class CRUDUtils {
                 String category = rs.getString("category");
                 int quantity = rs.getInt("quantity");
                 Date purchaseDate = rs.getDate("purchase_date");
-                searchedEquipments.add(new SchoolEquipmentForZavkhoz(id, serialNumber, equipmentName, category, quantity, purchaseDate));
+                orderedEquipmentQuantities.add(new OrderedEquipmentQuantity(id, serialNumber, equipmentName, category, quantity, purchaseDate));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return searchedEquipments;
+        return orderedEquipmentQuantities;
     }
 
     public static List<DeliveredSchoolEquipment> saveDeliveredEquipment(DeliveredSchoolEquipment equipment) {
