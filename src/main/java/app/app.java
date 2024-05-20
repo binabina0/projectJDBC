@@ -19,29 +19,28 @@ public class app {
         String username = scan.nextLine();
         System.out.println("Enter your password: ");
         String password = scan.nextLine();
-        int quit = 7;
+        int zavkhozChoise = 0;
 
         if (type.equals("Zavkhoz")) {
             String zavkhozPassword = CRUDUtils.zavkhozPassword(username);
             if (password.equals(zavkhozPassword)) {
                 System.out.println("Greetings dear, Caretaker!\n" +
                         "Please dial the menu number to work with the program, if you are finished, then dial 7:");
-                while (quit == 7) {
+                while (zavkhozChoise != 7) {
                     Zavkhoz.menu();
-                    int zavkhozChoise = scan.nextInt();
+                    zavkhozChoise = scan.nextInt();
                     scan.nextLine();
+                    if (zavkhozChoise == 7) {
+                        System.out.println("The program is completed, we will be glad to see you back!");
+                        System.exit(0);
+                    }
                     while (zavkhozChoise > 7 || zavkhozChoise < 1) {
                         System.out.println("Enter command only from 1 to 7");
                         zavkhozChoise = scan.nextInt();
                         scan.nextLine();
                     }
                     Zavkhoz.zavkhozActions(zavkhozChoise);
-                    System.out.println("Please dial the menu number to work with the program, if you are finished, then dial 7:");
-                    quit = scan.nextInt();
-                    if (quit == 7) {
-                        System.out.println("The program is completed, we will be glad to see you back!");
-                        System.exit(0);
-                    }
+
                 }
             } else {
                 System.out.println("Incorrect password.");

@@ -79,7 +79,7 @@ INSERT INTO OrderedSchoolEquipment (serial_number, equipment_name, category, qua
 
 
 -- Drop the table if it already exists
-DROP TABLE IF EXISTS DeliveredEquipment;
+DROP TABLE IF EXISTS DeliveredSchoolEquipment;
 
 -- Create the table
 CREATE TABLE DeliveredSchoolEquipment (

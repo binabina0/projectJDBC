@@ -124,10 +124,12 @@ public class Zavkhoz {
             }
             if(subChoice == 1){
                 System.out.println("Enter your serial number to search:");
+                scan.nextLine();
                 String serialNumber = scan.nextLine();
                 System.out.println(CRUDUtils.getSearchedEquipmentBySerialNumber(serialNumber));
             } else if (subChoice == 2) {
                 System.out.println("Write the name of the equipment to search:");
+                scan.nextLine();
                 String equipmentName = scan.nextLine();
                 System.out.println(CRUDUtils.getSearchedEquipmentByName(equipmentName));
             }

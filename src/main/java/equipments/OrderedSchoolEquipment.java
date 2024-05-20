@@ -103,16 +103,16 @@ public class OrderedSchoolEquipment {
 
     @Override
     public String toString() {
-        return "OrderedSchoolEquipment{" +
-                "id=" + id +
-                ", serialNumber='" + serialNumber + '\'' +
-                ", equipmentName='" + equipmentName + '\'' +
-                ", category='" + category + '\'' +
-                ", quantity=" + quantity +
-                ", price=" + price +
-                ", deliveryRate=" + deliveryRate +
-                ", totalPrice=" + totalPrice +
-                ", orderedDate=" + orderedDate +
+        return "OrderedSchoolEquipment{\n" +
+                "id=" + id + '\n' +
+                ", serialNumber='" + serialNumber + '\n' +
+                ", equipmentName='" + equipmentName + '\n' +
+                ", category='" + category + '\n' +
+                ", quantity=" + quantity + '\n' +
+                ", price=" + price + '\n' +
+                ", deliveryRate=" + deliveryRate + '\n' +
+                ", totalPrice=" + totalPrice + '\n' +
+                ", orderedDate=" + orderedDate + '\n' +
                 '}';
     }
 }
