@@ -53,11 +53,11 @@ public class ListOfEquipments {
 
     @Override
     public String toString() {
-        return "SchoolEquipment{" +
-                "id=" + id +
-                ", serialNumber='" + serialNumber + '\'' +
-                ", equipmentName='" + equipmentName + '\'' +
-                ", category='" + category + '\'' +
+        return "SchoolEquipment{\n" +
+                "id=" + id +"\n" +
+                ", serialNumber='" + serialNumber + '\n' +
+                ", equipmentName='" + equipmentName + '\n' +
+                ", category='" + category + '\n' +
                 '}';
     }
 }

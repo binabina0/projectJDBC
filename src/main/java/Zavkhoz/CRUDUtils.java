@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CRUDUtils {
-    private static String SELECT_BY_EQUIPMENT = "SELECT * WHERE equipment_name = ? FROM SchoolEquipment";
-    private static String SELECT_BY_SERIAL_NUMBER = "SELECT * WHERE serial_number = ? FROM SchoolEquipment";
-    private static String SELECT_ALL_EQUIPMENT = "SELECT * FROM SchoolEquipment";
-    private static String SELECT_ALL_ORDERED_EQUIPMENT = "SELECT * FROM OrderedEquipment";
-    private static String INSERT_EQUIPMENT = "INSERT INTO OrderedSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivery_rate, total_price, purchase_date) VALUES(?, ?, ?, ?, '', '', '', '');";
+    private static final String SELECT_BY_EQUIPMENT = "SELECT * FROM SchoolEquipment WHERE equipment_name = ?";
+    private static final String SELECT_BY_SERIAL_NUMBER = "SELECT * FROM SchoolEquipment WHERE serial_number = ?";
+    private static final String SELECT_ALL_EQUIPMENT = "SELECT * FROM SchoolEquipment";
+    private static final String SELECT_ALL_ORDERED_EQUIPMENT = "SELECT * FROM OrderedEquipment";
+    private static final String INSERT_EQUIPMENT = "INSERT INTO OrderedSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivery_rate, total_price, purchase_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EQUIPMENT = "DELETE FROM OrderedEquipment WHERE id = ?";
-    private static final String SELECT_PASSWORD = "SELECT zavkhoz_password WHERE equipment_name = ? FROM Zavkhoz";
+    private static final String SELECT_PASSWORD = "SELECT zavkhoz_password FROM Zavkhoz WHERE zavkhoz_username = ?";
 
     public static List<SchoolEquipment> getEquipmentData(String query) {
         List<SchoolEquipment> schoolEquipments = new ArrayList<>();

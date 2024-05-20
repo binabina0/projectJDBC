@@ -24,7 +24,6 @@ public class app {
         if (type.equals("Zavkhoz")) {
             String zavkhozPassword = CRUDUtils.zavkhozPassword(username);
             if (password.equals(zavkhozPassword)) {
-
                 System.out.println("Greetings dear, Caretaker!\n" +
                         "Please dial the menu number to work with the program, if you are finished, then dial 7:");
                 while (quit == 7) {
@@ -44,7 +43,8 @@ public class app {
                         System.exit(0);
                     }
                 }
-
+            } else {
+                System.out.println("Incorrect password.");
             }
 
         }
