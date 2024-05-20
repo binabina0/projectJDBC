@@ -153,6 +153,26 @@ public class CRUDUtils {
         return orderedEquipmentQuantities;
     }
 
+    public static List<DeliveredEquipmentQuantity> getDeliveredEquipmentQuantity (){
+        List<DeliveredEquipmentQuantity> deliveredEquipmentQuantities = new ArrayList<>();
+        try (Connection connection = DBUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDERED_EQUIPMENT)) {
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String serialNumber = rs.getString("serial_number");
+                String equipmentName = rs.getString("equipment_name");
+                String category = rs.getString("category");
+                int quantity = rs.getInt("quantity");
+                Date deliveredDate = rs.getDate("purchase_date");
+                deliveredEquipmentQuantities.add(new DeliveredEquipmentQuantity(id, serialNumber, equipmentName, category, quantity, deliveredDate));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return deliveredEquipmentQuantities;
+    }
+
     public static List<DeliveredSchoolEquipment> saveDeliveredEquipment(DeliveredSchoolEquipment equipment) {
         List<DeliveredSchoolEquipment> equipments = new ArrayList<>();
 
