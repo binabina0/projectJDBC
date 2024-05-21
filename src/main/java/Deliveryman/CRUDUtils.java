@@ -1,11 +1,8 @@
 package Deliveryman;
 
 import Zavkhoz.DBUtils;
-import Zavkhoz.SchoolEquipmentForZavkhoz;
 import equipments.DeliveredSchoolEquipment;
-import equipments.ListOfEquipments;
 import equipments.OrderedSchoolEquipment;
-import equipments.SchoolEquipment;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -13,15 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CRUDUtils {
-    private static final String SELECT_BY_EQUIPMENT = "SELECT * FROM SchoolEquipment WHERE equipment_name = ?";
-    private static final String SELECT_BY_SERIAL_NUMBER = "SELECT * FROM SchoolEquipment WHERE serial_number = ?";
-    private static final String SELECT_ALL_EQUIPMENT = "SELECT * FROM SchoolEquipment";
     private static final String SELECT_ALL_ORDERED_EQUIPMENT = "SELECT * FROM OrderedSchoolEquipment";
     private static final String SELECT_ALL_DELIVERED_EQUIPMENT = "SELECT * FROM DeliveredSchoolEquipment";
     private static final String INSERT_EQUIPMENT = "INSERT INTO DeliveredSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivery_rate, total_price, purchase_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String DELETE_EQUIPMENT = "DELETE FROM OrderedEquipment WHERE id = ?";
     private static final String SELECT_PASSWORD = "SELECT deliveryman_password FROM Deliveryman WHERE delivery_username = ?";
 
+    private static final String DELETE_EQUIPMENT_BY_NAME_OR_SN = "DELETE FROM OrderedSchoolEquipment WHERE id = ? OR serial_number = ?";
+    private static final String SELECT_EQUIPMENT_BY_NAME_OR_SN = "SELECT * FROM OrderedSchoolEquipment WHERE id = ? OR serial_number = ?";
     public static String deliverymanPassword(String deliverymanName) {
         String password = null;
         try (Connection connection = DBUtils.getConnection();
@@ -120,45 +115,69 @@ public class CRUDUtils {
         return deliverymansDeliveryRates;
     }
 
-    public static List<DeliveredSchoolEquipment> saveDeliveredEquipment(DeliveredSchoolEquipment equipment) {
-        List<DeliveredSchoolEquipment> equipments = new ArrayList<>();
+    public static List<DeliveredSchoolEquipment> saveDeliveredEquipment(String equipmentIdentifier) {
+        List<DeliveredSchoolEquipment> deliveredEquipments = new ArrayList<>();
+        OrderedSchoolEquipment equipment = null;
 
-        try (Connection connection = DBUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_EQUIPMENT)) {
+        try (Connection connection = DBUtils.getConnection()) {
+           PreparedStatement selectStmt = connection.prepareStatement(SELECT_EQUIPMENT_BY_NAME_OR_SN);
+                selectStmt.setString(1, equipmentIdentifier);
+                selectStmt.setString(2, equipmentIdentifier);
+                ResultSet selectedById = selectStmt.executeQuery();
+                while (selectedById.next()) {
+                    equipment = new OrderedSchoolEquipment(
+                            selectedById.getInt("id"),
+                            selectedById.getString("serial_number"),
+                            selectedById.getString("equipment_name"),
+                            selectedById.getString("category"),
+                            selectedById.getInt("quantity"),
+                            selectedById.getBigDecimal("price"),
+                            selectedById.getBigDecimal("delivery_rate"),
+                            selectedById.getBigDecimal("total_price"),
+                            selectedById.getDate("purchase_date")
+                    );
+                }
 
-            preparedStatement.setString(1, equipment.getSerialNumber());
-            preparedStatement.setString(2, equipment.getEquipmentName());
-            preparedStatement.setString(3, equipment.getCategory());
-            preparedStatement.setInt(4, equipment.getQuantity());
-            preparedStatement.setBigDecimal(5, equipment.getPrice());
-            preparedStatement.setBigDecimal(6, equipment.getDeliveryRate());
-            preparedStatement.setBigDecimal(7, equipment.getTotalPrice());
-            preparedStatement.setDate(8, equipment.getDeliveredDate());
-            preparedStatement.executeUpdate();
+                try (PreparedStatement deleteStmt = connection.prepareStatement(DELETE_EQUIPMENT_BY_NAME_OR_SN)) {
+                    deleteStmt.setInt(1, equipment.getId());
+                    deleteStmt.setString(2, equipment.getSerialNumber());
+                    deleteStmt.executeUpdate();
 
-            PreparedStatement deliveredEquipments = connection.prepareStatement(SELECT_ALL_DELIVERED_EQUIPMENT);
-            ResultSet rs = deliveredEquipments.executeQuery();
+                 PreparedStatement insertStmt = connection.prepareStatement(INSERT_EQUIPMENT);
+                    insertStmt.setString(1, equipment.getSerialNumber());
+                    insertStmt.setString(2, equipment.getEquipmentName());
+                    insertStmt.setString(3, equipment.getCategory());
+                    insertStmt.setInt(4, equipment.getQuantity());
+                    insertStmt.setBigDecimal(5, equipment.getPrice());
+                    insertStmt.setBigDecimal(6, equipment.getDeliveryRate());
+                    insertStmt.setBigDecimal(7, equipment.getTotalPrice());
+                    insertStmt.setDate(8, new Date(System.currentTimeMillis()));
+                    insertStmt.executeUpdate();
 
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String serialNumber = rs.getString("serial_number");
-                String equipmentName = rs.getString("equipment_name");
-                String category = rs.getString("category");
-                int quantity = rs.getInt("quantity");
-                BigDecimal price = rs.getBigDecimal("price");
-                BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
-                BigDecimal totalPrice = rs.getBigDecimal("total_price");
-                Date deliveredDate = rs.getDate("delivered_date");
 
-                equipments.add(new DeliveredSchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, deliveredDate));
+                PreparedStatement deliveredEquipmentsStmt = connection.prepareStatement(SELECT_ALL_DELIVERED_EQUIPMENT);
+                    ResultSet rs = deliveredEquipmentsStmt.executeQuery();
+                    while (rs.next()) {
+                        deliveredEquipments.add(new DeliveredSchoolEquipment(
+                                rs.getInt("id"),
+                                rs.getString("serial_number"),
+                                rs.getString("equipment_name"),
+                                rs.getString("category"),
+                                rs.getInt("quantity"),
+                                rs.getBigDecimal("price"),
+                                rs.getBigDecimal("delivery_rate"),
+                                rs.getBigDecimal("total_price"),
+                                rs.getDate("delivered_date")
+                        ));
+                }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return equipments;
+        return deliveredEquipments;
     }
-    public static List<DeliveredSchoolEquipment> getDeliveredEquipmentData() {
+
+        public static List<DeliveredSchoolEquipment> getDeliveredEquipmentData() {
         List<DeliveredSchoolEquipment> schoolEquipments = new ArrayList<>();
 
         try (Connection connection = DBUtils.getConnection();
@@ -174,13 +193,45 @@ public class CRUDUtils {
                 BigDecimal price = rs.getBigDecimal("price");
                 BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
                 BigDecimal totalPrice = rs.getBigDecimal("total_price");
-                Date orderedDate = rs.getDate("ordered_date");
+                Date deliveredDate = rs.getDate("delivered_date");
 
-                schoolEquipments.add(new DeliveredSchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, orderedDate));
+                schoolEquipments.add(new DeliveredSchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, deliveredDate));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return schoolEquipments;
+    }
+
+    public static List<OrderedSchoolEquipment> deleteEquipmentByNameOrSN(String equipmentNameOrSN) {
+        List<OrderedSchoolEquipment> deletedEquipment = new ArrayList<>();
+
+        try (Connection connection = DBUtils.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_EQUIPMENT_BY_NAME_OR_SN)) {
+
+            preparedStatement.setString(1, equipmentNameOrSN);
+            preparedStatement.setString(2, equipmentNameOrSN);
+            preparedStatement.executeUpdate();
+
+            PreparedStatement allStudents = connection.prepareStatement(SELECT_ALL_ORDERED_EQUIPMENT);
+            ResultSet rs = allStudents.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String serialNumber = rs.getString("serial_number");
+                String equipmentName = rs.getString("equipment_name");
+                String category = rs.getString("category");
+                int quantity = rs.getInt("quantity");
+                BigDecimal price = rs.getBigDecimal("price");
+                BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
+                BigDecimal totalPrice = rs.getBigDecimal("total_price");
+                Date orderedDate = rs.getDate("ordered_date");
+
+                deletedEquipment.add(new OrderedSchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, orderedDate));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return deletedEquipment;
     }
 }

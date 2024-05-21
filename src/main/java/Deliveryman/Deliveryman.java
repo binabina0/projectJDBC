@@ -1,4 +1,6 @@
-package tutorial;
+package Deliveryman;
+
+import java.util.Scanner;
 
 public class Deliveryman {
     private int id;
@@ -60,56 +62,20 @@ public class Deliveryman {
     }
 
 
-    public static void zavkhozActions(int zavkhozChoise) {
+    public static void deliverymanActions(int deliverymanChoise) {
         Scanner scan = new Scanner(System.in);
 
-        if (zavkhozChoise == 6) {
-            System.out.println("What equipment would you like to remove?");
-            String equipment = scan.next();
-            System.out.println(Zavkhoz.CRUDUtils.deleteEquipment(equipment));
-
-        } else if (zavkhozChoise == 5) {
-            System.out.println("Ordered School Equipment Details:\n" + Zavkhoz.CRUDUtils.getOrderedEquipmentData());
-        } else if (zavkhozChoise == 4) {
-            System.out.println("Please write what equipment you would like to order");
-            System.out.print("Enter serial number: ");
-            String serialNumber = scan.nextLine();
-
-            System.out.print("Enter equipment name: ");
-            String equipmentName = scan.nextLine();
-
-            System.out.print("Enter category: ");
-            String category = scan.nextLine();
-
-            System.out.print("Enter quantity: ");
-            int quantity = scan.nextInt();
-
-            System.out.print("Enter price: ");
-            BigDecimal price = BigDecimal.valueOf(scan.nextDouble());
-
-            System.out.print("Enter delivery rate: ");
-            BigDecimal deliveryRate = BigDecimal.valueOf(scan.nextDouble());
-
-            System.out.print("Enter total price: ");
-            BigDecimal totalPrice = BigDecimal.valueOf(scan.nextDouble());
-
-            System.out.print("Enter ordered date (yyyy-mm-dd): ");
-            String orderedDateString = scan.next();
-            Date orderedDate = Date.valueOf(orderedDateString);
-
-            OrderedSchoolEquipment equipment = new OrderedSchoolEquipment();
-            equipment.setSerialNumber(serialNumber);
-            equipment.setEquipmentName(equipmentName);
-            equipment.setCategory(category);
-            equipment.setQuantity(quantity);
-            equipment.setPrice(price);
-            equipment.setDeliveryRate(deliveryRate);
-            equipment.setTotalPrice(totalPrice);
-            equipment.setOrderedDate(orderedDate);
-            System.out.println(Zavkhoz.CRUDUtils.saveOrderedEquipment(equipment));
-        } else if (zavkhozChoise == 3) {
-            System.out.println("Equipment report:\n" + Zavkhoz.CRUDUtils.allEquipmentData());
-        } else if (zavkhozChoise == 2) {
+        if (deliverymanChoise == 6) {
+            System.out.println("Earnings:\n" + CRUDUtils.getDeliverymansDeliveryRate());
+        } else if (deliverymanChoise == 5) {
+            System.out.println("The number of equipment ordered:\n" + CRUDUtils.getOrderedEquipmentQuantity());
+        } else if (deliverymanChoise == 4) {
+            System.out.println("The number of delivered equipment:\n" + CRUDUtils.getDeliveredEquipmentQuantity());
+        }else if (deliverymanChoise == 3) {
+            System.out.println("What equipment was delivered? Enter the name of the equipment or its serial number\n");
+            String deliveredEquipmentNameOrSN = scan.nextLine();
+            CRUDUtils.saveDeliveredEquipment(deliveredEquipmentNameOrSN);
+        } else if (deliverymanChoise == 2) {
             System.out.println("1.\tBy serial number\n" + "2.\tBy name");
             int subChoice = scan.nextInt();
             while(subChoice>2||subChoice<1)
@@ -129,7 +95,7 @@ public class Deliveryman {
                 String equipmentName = scan.nextLine();
                 System.out.println(Zavkhoz.CRUDUtils.getSearchedEquipmentByName(equipmentName));
             }
-        } else if (zavkhozChoise == 1) {
+        } else if (deliverymanChoise == 1) {
             System.out.println("The entire list of school equipment\n" + CRUDUtils.listOfEquipment());
         }
     }
