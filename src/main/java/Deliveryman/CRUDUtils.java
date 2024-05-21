@@ -15,8 +15,8 @@ public class CRUDUtils {
     private static final String INSERT_EQUIPMENT = "INSERT INTO DeliveredSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivery_rate, total_price, purchase_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_PASSWORD = "SELECT deliveryman_password FROM Deliveryman WHERE delivery_username = ?";
 
-    private static final String DELETE_EQUIPMENT_BY_NAME_OR_SN = "DELETE FROM OrderedSchoolEquipment WHERE id = ? OR serial_number = ?";
-    private static final String SELECT_EQUIPMENT_BY_NAME_OR_SN = "SELECT * FROM OrderedSchoolEquipment WHERE id = ? OR serial_number = ?";
+    private static final String DELETE_EQUIPMENT_BY_NAME_OR_SN = "DELETE FROM OrderedSchoolEquipment WHERE equipment_name = ? OR serial_number = ?";
+    private static final String SELECT_EQUIPMENT_BY_NAME_OR_SN = "SELECT * FROM OrderedSchoolEquipment WHERE equipment_name = ? OR serial_number = ?";
     public static String deliverymanPassword(String deliverymanName) {
         String password = null;
         try (Connection connection = DBUtils.getConnection();
@@ -139,7 +139,7 @@ public class CRUDUtils {
                 }
 
                 try (PreparedStatement deleteStmt = connection.prepareStatement(DELETE_EQUIPMENT_BY_NAME_OR_SN)) {
-                    deleteStmt.setInt(1, equipment.getId());
+                    deleteStmt.setString(1, equipment.getEquipmentName());
                     deleteStmt.setString(2, equipment.getSerialNumber());
                     deleteStmt.executeUpdate();
 
@@ -201,37 +201,5 @@ public class CRUDUtils {
             throw new RuntimeException(e);
         }
         return schoolEquipments;
-    }
-
-    public static List<OrderedSchoolEquipment> deleteEquipmentByNameOrSN(String equipmentNameOrSN) {
-        List<OrderedSchoolEquipment> deletedEquipment = new ArrayList<>();
-
-        try (Connection connection = DBUtils.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_EQUIPMENT_BY_NAME_OR_SN)) {
-
-            preparedStatement.setString(1, equipmentNameOrSN);
-            preparedStatement.setString(2, equipmentNameOrSN);
-            preparedStatement.executeUpdate();
-
-            PreparedStatement allStudents = connection.prepareStatement(SELECT_ALL_ORDERED_EQUIPMENT);
-            ResultSet rs = allStudents.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String serialNumber = rs.getString("serial_number");
-                String equipmentName = rs.getString("equipment_name");
-                String category = rs.getString("category");
-                int quantity = rs.getInt("quantity");
-                BigDecimal price = rs.getBigDecimal("price");
-                BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
-                BigDecimal totalPrice = rs.getBigDecimal("total_price");
-                Date orderedDate = rs.getDate("ordered_date");
-
-                deletedEquipment.add(new OrderedSchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, orderedDate));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return deletedEquipment;
     }
 }
