@@ -45,34 +45,33 @@ public class app {
             } else {
                 System.out.println("Incorrect password.");
             }
+        } else if (type.equals("Deliveryman")) {
+            String deliverymanPassword = CRUDUtils.zavkhozPassword(username);
+            if (password.equals(deliverymanPassword)) {
+                System.out.println("Greetings dear, Caretaker!\n" +
+                        "Please dial the menu number to work with the program, if you are finished, then dial 7:");
+                while (zavkhozChoise != 7) {
+                    Zavkhoz.menu();
+                    zavkhozChoise = scan.nextInt();
+                    scan.nextLine();
+                    if (zavkhozChoise == 7) {
+                        System.out.println("The program is completed, we will be glad to see you back!");
+                        System.exit(0);
+                    }
+                    while (zavkhozChoise > 7 || zavkhozChoise < 1) {
+                        System.out.println("Enter command only from 1 to 7");
+                        zavkhozChoise = scan.nextInt();
+                        scan.nextLine();
+                    }
+                    Zavkhoz.zavkhozActions(zavkhozChoise);
 
+                }
+            } else {
+                System.out.println("Incorrect password.");
+            }
         }
     }
 }
-//        else if (role == 2)
-//        {
-//            String teacherPassword = getTeacherPassword(username);
-//            if(password.equals(teacherPassword))
-//            {
-//                String courseName = getTeacherCourseNameAccordingToTeacherUserName(username);
-//                System.out.println("Dear "+courseName+" teacher welcome to the grading system!\nChoose what do you want to do and enter the number of the command:");
-//                while(quit.equals("no"))
-//                {
-//                    teacher.menu();
-//                    int teacherChoise = scan.nextInt();
-//                    scan.nextLine();
-//                    teacher.executeActionAccordingToTeachersChoise(teacherChoise,courseName);
-//                    System.out.println("Do you want to quit?(yes/no)");
-//                    quit = scan.nextLine();
-//                    if(quit.equals("yes"))
-//                    {
-//                        System.out.println("Goodbye");
-//                        System.exit(0);
-//                    }
-//                }
-//
-//            }
-//        }
 //        else if(role == 3)
 //        {
 //            String studentPassword = getStudentPassword(username);

@@ -73,30 +73,12 @@ public class Deliveryman {
             System.out.println("The number of delivered equipment:\n" + CRUDUtils.getDeliveredEquipmentQuantity());
         }else if (deliverymanChoise == 3) {
             System.out.println("What equipment was delivered? Enter the name of the equipment or its serial number\n");
-            String deliveredEquipmentNameOrSN = scan.nextLine();
-            CRUDUtils.saveDeliveredEquipment(deliveredEquipmentNameOrSN);
+            String equipmentIdentifier = scan.nextLine();
+            System.out.println(CRUDUtils.saveDeliveredEquipment(equipmentIdentifier));
         } else if (deliverymanChoise == 2) {
-            System.out.println("1.\tBy serial number\n" + "2.\tBy name");
-            int subChoice = scan.nextInt();
-            while(subChoice>2||subChoice<1)
-            {
-                System.out.println("Enter command only 1 or 2");
-                subChoice = scan.nextInt();
-                scan.nextLine();
-            }
-            if(subChoice == 1){
-                System.out.println("Enter your serial number to search:");
-                scan.nextLine();
-                String serialNumber = scan.nextLine();
-                System.out.println(Zavkhoz.CRUDUtils.getSearchedEquipmentBySerialNumber(serialNumber));
-            } else if (subChoice == 2) {
-                System.out.println("Write the name of the equipment to search:");
-                scan.nextLine();
-                String equipmentName = scan.nextLine();
-                System.out.println(Zavkhoz.CRUDUtils.getSearchedEquipmentByName(equipmentName));
-            }
+            System.out.println(CRUDUtils.getDeliveredEquipmentData());
         } else if (deliverymanChoise == 1) {
-            System.out.println("The entire list of school equipment\n" + CRUDUtils.listOfEquipment());
+            System.out.println(CRUDUtils.getOrederedEquipmentNameList());
         }
     }
 }
