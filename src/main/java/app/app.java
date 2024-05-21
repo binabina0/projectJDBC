@@ -1,4 +1,5 @@
 package app;
+import DeliverymanUser.Deliveryman;
 import Zavkhoz.Zavkhoz;
 import Zavkhoz.CRUDUtils;
 
@@ -10,7 +11,7 @@ public class app {
         System.out.println("To run the program, please enter your account type: \n Zavkhoz \n Deliveryman \n Director");
         String type = scan.next();
         scan.nextLine();
-        while (!(type.equals("Zavkhoz") || type.equals("Deliveryman") || type.equals("Director"))) {
+        while (!(type.equals("Zavkhoz") || type.equals("DeliverymanUser") || type.equals("Director"))) {
             System.out.println("Sorry, but we did not find this type of account, please try again.");
             System.out.println("To run the program, please enter your account type: \n Zavkhoz \n Deliveryman \n Director");
             type = scan.next();
@@ -19,52 +20,52 @@ public class app {
         String username = scan.nextLine();
         System.out.println("Enter your password: ");
         String password = scan.nextLine();
-        int zavkhozChoise = 0;
+        int userChoice = 0;
 
         if (type.equals("Zavkhoz")) {
             String zavkhozPassword = CRUDUtils.zavkhozPassword(username);
             if (password.equals(zavkhozPassword)) {
                 System.out.println("Greetings dear, Caretaker!\n" +
                         "Please dial the menu number to work with the program, if you are finished, then dial 7:");
-                while (zavkhozChoise != 7) {
+                while (userChoice != 7) {
                     Zavkhoz.menu();
-                    zavkhozChoise = scan.nextInt();
+                    userChoice = scan.nextInt();
                     scan.nextLine();
-                    if (zavkhozChoise == 7) {
+                    if (userChoice == 7) {
                         System.out.println("The program is completed, we will be glad to see you back!");
                         System.exit(0);
                     }
-                    while (zavkhozChoise > 7 || zavkhozChoise < 1) {
+                    while (userChoice > 7 || userChoice < 1) {
                         System.out.println("Enter command only from 1 to 7");
-                        zavkhozChoise = scan.nextInt();
+                        userChoice = scan.nextInt();
                         scan.nextLine();
                     }
-                    Zavkhoz.zavkhozActions(zavkhozChoise);
+                    Zavkhoz.zavkhozActions(userChoice);
 
                 }
             } else {
                 System.out.println("Incorrect password.");
             }
+
         } else if (type.equals("Deliveryman")) {
-            String deliverymanPassword = CRUDUtils.zavkhozPassword(username);
+            String deliverymanPassword = DeliverymanUser.CRUDUtils.deliverymanPassword(username);
             if (password.equals(deliverymanPassword)) {
-                System.out.println("Greetings dear, Caretaker!\n" +
-                        "Please dial the menu number to work with the program, if you are finished, then dial 7:");
-                while (zavkhozChoise != 7) {
-                    Zavkhoz.menu();
-                    zavkhozChoise = scan.nextInt();
+                System.out.println("Greetings dear Delivery Man!\n" +
+                        "Please dial the menu number to work with the program, if you are finished, then dial 7.");
+                while (userChoice != 7) {
+                    Deliveryman.menu();
+                    userChoice = scan.nextInt();
                     scan.nextLine();
-                    if (zavkhozChoise == 7) {
+                    if (userChoice == 7) {
                         System.out.println("The program is completed, we will be glad to see you back!");
                         System.exit(0);
                     }
-                    while (zavkhozChoise > 7 || zavkhozChoise < 1) {
+                    while (userChoice > 7 || userChoice < 1) {
                         System.out.println("Enter command only from 1 to 7");
-                        zavkhozChoise = scan.nextInt();
+                        userChoice = scan.nextInt();
                         scan.nextLine();
                     }
-                    Zavkhoz.zavkhozActions(zavkhozChoise);
-
+                    Deliveryman.deliverymanActions(userChoice);
                 }
             } else {
                 System.out.println("Incorrect password.");

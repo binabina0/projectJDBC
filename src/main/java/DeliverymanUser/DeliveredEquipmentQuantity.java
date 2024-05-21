@@ -1,25 +1,25 @@
-package Deliveryman;
+package DeliverymanUser;
 
 import java.util.Date;
 
-public class OrderedEquipmentQuantity {
+public class DeliveredEquipmentQuantity {
     private int id;
     private String serialNumber;
     private String equipmentName;
     private String category;
     private int quantity;
-    private Date purshaseDate;
+    private Date deliveredDate;
 
-    public OrderedEquipmentQuantity() {
+    public DeliveredEquipmentQuantity() {
     }
 
-    public OrderedEquipmentQuantity(int id, String serialNumber, String equipmentName, String category, int quantity, Date purshaseDate) {
+    public DeliveredEquipmentQuantity(int id, String serialNumber, String equipmentName, String category, int quantity, Date deliveredDate) {
         this.id = id;
         this.serialNumber = serialNumber;
         this.equipmentName = equipmentName;
         this.category = category;
         this.quantity = quantity;
-        this.purshaseDate = purshaseDate;
+        this.deliveredDate = deliveredDate;
     }
 
     public int getId() {
@@ -54,12 +54,12 @@ public class OrderedEquipmentQuantity {
         this.category = category;
     }
 
-    public Date getPurshedDate() {
-        return purshaseDate;
+    public Date getDeliveredDate() {
+        return deliveredDate;
     }
 
-    public void setPurshaseDate(Date purshaseDate) {
-        this.purshaseDate = purshaseDate;
+    public void setDeliveredDate(Date deliveredDate) {
+        this.deliveredDate = deliveredDate;
     }
     public int getQuantity() {
         return quantity;
@@ -77,9 +77,10 @@ public class OrderedEquipmentQuantity {
                 ", equipmentName='" + equipmentName + '\n' +
                 ", category='" + category + '\n' +
                 ", quantity=" + quantity + '\n' +
-                ", deliveredDate=" + purshaseDate + '\n' +
+                ", deliveredDate=" + deliveredDate + '\n' +
                 '}';
     }
+
 
 
 }

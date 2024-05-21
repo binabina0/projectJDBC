@@ -1,4 +1,4 @@
-package Deliveryman;
+package DeliverymanUser;
 
 import java.util.Scanner;
 

@@ -1,22 +1,25 @@
-package Deliveryman;
+package DeliverymanUser;
 
 import java.util.Date;
 
-public class OrderedEquipmentName {
+public class OrderedEquipmentQuantity {
     private int id;
     private String serialNumber;
     private String equipmentName;
     private String category;
+    private int quantity;
     private Date purshaseDate;
 
-    public OrderedEquipmentName() {
+    public OrderedEquipmentQuantity() {
     }
 
-    public OrderedEquipmentName(int id, String serialNumber, String equipmentName, String category, Date purshaseDate) {
+    public OrderedEquipmentQuantity(int id, String serialNumber, String equipmentName, String category, int quantity, Date purshaseDate) {
         this.id = id;
         this.serialNumber = serialNumber;
         this.equipmentName = equipmentName;
         this.category = category;
+        this.quantity = quantity;
+        this.purshaseDate = purshaseDate;
     }
 
     public int getId() {
@@ -58,6 +61,13 @@ public class OrderedEquipmentName {
     public void setPurshaseDate(Date purshaseDate) {
         this.purshaseDate = purshaseDate;
     }
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     @Override
     public String toString() {
@@ -66,7 +76,10 @@ public class OrderedEquipmentName {
                 ", serialNumber='" + serialNumber + '\n' +
                 ", equipmentName='" + equipmentName + '\n' +
                 ", category='" + category + '\n' +
+                ", quantity=" + quantity + '\n' +
                 ", deliveredDate=" + purshaseDate + '\n' +
                 '}';
     }
+
+
 }

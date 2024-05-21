@@ -1,4 +1,4 @@
-package Deliveryman;
+package DeliverymanUser;
 
 import Zavkhoz.DBUtils;
 import equipments.DeliveredSchoolEquipment;
@@ -202,4 +202,5 @@ public class CRUDUtils {
         }
         return schoolEquipments;
     }
+
 }

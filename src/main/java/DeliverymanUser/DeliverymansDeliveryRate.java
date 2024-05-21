@@ -1,25 +1,25 @@
-package Deliveryman;
+package DeliverymanUser;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
-public class DeliveredEquipmentQuantity {
+public class DeliverymansDeliveryRate {
     private int id;
     private String serialNumber;
     private String equipmentName;
     private String category;
     private int quantity;
-    private Date deliveredDate;
+    private BigDecimal deliveryRate;
 
-    public DeliveredEquipmentQuantity() {
+    public DeliverymansDeliveryRate() {
     }
 
-    public DeliveredEquipmentQuantity(int id, String serialNumber, String equipmentName, String category, int quantity, Date deliveredDate) {
+    public DeliverymansDeliveryRate(int id, String serialNumber, String equipmentName, String category, int quantity, BigDecimal deliveryRate) {
         this.id = id;
         this.serialNumber = serialNumber;
         this.equipmentName = equipmentName;
         this.category = category;
         this.quantity = quantity;
-        this.deliveredDate = deliveredDate;
+        this.deliveryRate = deliveryRate;
     }
 
     public int getId() {
@@ -54,13 +54,6 @@ public class DeliveredEquipmentQuantity {
         this.category = category;
     }
 
-    public Date getDeliveredDate() {
-        return deliveredDate;
-    }
-
-    public void setDeliveredDate(Date deliveredDate) {
-        this.deliveredDate = deliveredDate;
-    }
     public int getQuantity() {
         return quantity;
     }
@@ -69,18 +62,23 @@ public class DeliveredEquipmentQuantity {
         this.quantity = quantity;
     }
 
+    public BigDecimal getDeliveryRate() {
+        return deliveryRate;
+    }
+
+    public void setDeliveryRate(BigDecimal deliveryRate) {
+        this.deliveryRate = deliveryRate;
+    }
+
     @Override
     public String toString() {
-        return "SchoolEquipment{\n" +
-                "id=" + id +"\n" +
+        return "DeliveredSchoolEquipment{" +
+                "id=" + id + '\n' +
                 ", serialNumber='" + serialNumber + '\n' +
                 ", equipmentName='" + equipmentName + '\n' +
                 ", category='" + category + '\n' +
                 ", quantity=" + quantity + '\n' +
-                ", deliveredDate=" + deliveredDate + '\n' +
+                ", deliveryRate=" + deliveryRate + '\n' +
                 '}';
     }
-
-
-
 }
