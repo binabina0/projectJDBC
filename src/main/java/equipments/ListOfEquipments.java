@@ -53,11 +53,9 @@ public class ListOfEquipments {
 
     @Override
     public String toString() {
-        return "SchoolEquipment{\n" +
-                "id=" + id +"\n" +
-                ", serialNumber='" + serialNumber + '\n' +
-                ", equipmentName='" + equipmentName + '\n' +
-                ", category='" + category + '\n' +
-                '}';
+        return id + "\t"
+                + serialNumber + '\t'
+                + equipmentName + '\t'
+                + category + '\n';
     }
 }

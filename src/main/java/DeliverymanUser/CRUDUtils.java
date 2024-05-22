@@ -13,7 +13,7 @@ public class CRUDUtils {
     private static final String SELECT_ALL_ORDERED_EQUIPMENT = "SELECT * FROM OrderedSchoolEquipment";
     private static final String SELECT_ALL_DELIVERED_EQUIPMENT = "SELECT * FROM DeliveredSchoolEquipment";
     private static final String INSERT_EQUIPMENT = "INSERT INTO DeliveredSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivery_rate, total_price, purchase_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SELECT_PASSWORD = "SELECT deliveryman_password FROM Deliveryman WHERE delivery_username = ?";
+    private static final String SELECT_PASSWORD = "SELECT deliveryman_password FROM Deliveryman WHERE deliveryman_username = ?";
 
     private static final String DELETE_EQUIPMENT_BY_NAME_OR_SN = "DELETE FROM OrderedSchoolEquipment WHERE equipment_name = ? OR serial_number = ?";
     private static final String SELECT_EQUIPMENT_BY_NAME_OR_SN = "SELECT * FROM OrderedSchoolEquipment WHERE equipment_name = ? OR serial_number = ?";
@@ -47,8 +47,8 @@ public class CRUDUtils {
                 String serialNumber = rs.getString("serial_number");
                 String equipmentName = rs.getString("equipment_name");
                 String category = rs.getString("category");
-                Date purchaseDate = rs.getDate("purchase_date");
-                orderedEquipmentsName.add(new OrderedEquipmentName(id, serialNumber, equipmentName, category, purchaseDate));
+                Date orderedDate = rs.getDate("ordered_date");
+                orderedEquipmentsName.add(new OrderedEquipmentName(id, serialNumber, equipmentName, category, orderedDate));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

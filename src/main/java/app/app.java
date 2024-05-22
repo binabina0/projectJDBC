@@ -11,7 +11,7 @@ public class app {
         System.out.println("To run the program, please enter your account type: \n Zavkhoz \n Deliveryman \n Director");
         String type = scan.next();
         scan.nextLine();
-        while (!(type.equals("Zavkhoz") || type.equals("DeliverymanUser") || type.equals("Director"))) {
+        while (!(type.equals("Zavkhoz") || type.equals("Deliveryman") || type.equals("Director"))) {
             System.out.println("Sorry, but we did not find this type of account, please try again.");
             System.out.println("To run the program, please enter your account type: \n Zavkhoz \n Deliveryman \n Director");
             type = scan.next();
@@ -25,8 +25,7 @@ public class app {
         if (type.equals("Zavkhoz")) {
             String zavkhozPassword = CRUDUtils.zavkhozPassword(username);
             if (password.equals(zavkhozPassword)) {
-                System.out.println("Greetings dear, Caretaker!\n" +
-                        "Please dial the menu number to work with the program, if you are finished, then dial 7:");
+                System.out.println("Greetings dear, Caretaker!\n");
                 while (userChoice != 7) {
                     Zavkhoz.menu();
                     userChoice = scan.nextInt();
@@ -50,8 +49,7 @@ public class app {
         } else if (type.equals("Deliveryman")) {
             String deliverymanPassword = DeliverymanUser.CRUDUtils.deliverymanPassword(username);
             if (password.equals(deliverymanPassword)) {
-                System.out.println("Greetings dear Delivery Man!\n" +
-                        "Please dial the menu number to work with the program, if you are finished, then dial 7.");
+                System.out.println("Greetings dear Delivery Man!\n");
                 while (userChoice != 7) {
                     Deliveryman.menu();
                     userChoice = scan.nextInt();

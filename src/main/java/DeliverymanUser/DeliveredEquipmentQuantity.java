@@ -71,14 +71,12 @@ public class DeliveredEquipmentQuantity {
 
     @Override
     public String toString() {
-        return "SchoolEquipment{\n" +
-                "id=" + id +"\n" +
-                ", serialNumber='" + serialNumber + '\n' +
-                ", equipmentName='" + equipmentName + '\n' +
-                ", category='" + category + '\n' +
-                ", quantity=" + quantity + '\n' +
-                ", deliveredDate=" + deliveredDate + '\n' +
-                '}';
+        return id + '\t' +
+                serialNumber + '\t' +
+                equipmentName + '\t' +
+                category + '\t' +
+                quantity + '\t' +
+                deliveredDate + '\n';
     }
 
 

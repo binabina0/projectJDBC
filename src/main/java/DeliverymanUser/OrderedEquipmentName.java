@@ -61,12 +61,11 @@ public class OrderedEquipmentName {
 
     @Override
     public String toString() {
-        return "SchoolEquipment{\n" +
-                "id=" + id +"\n" +
-                ", serialNumber='" + serialNumber + '\n' +
-                ", equipmentName='" + equipmentName + '\n' +
-                ", category='" + category + '\n' +
-                ", deliveredDate=" + purshaseDate + '\n' +
-                '}';
+        return id + '\t' +
+                serialNumber + '\t' +
+                equipmentName + '\t' +
+                category + '\t' +
+                purshaseDate + '\n';
+
     }
 }

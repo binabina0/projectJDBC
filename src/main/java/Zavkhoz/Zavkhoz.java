@@ -51,7 +51,8 @@ public class Zavkhoz {
                 '}';
     }
     public static void menu() {
-        System.out.println("1.\tShow the entire list of school equipment\n" +
+        System.out.println("Please dial the menu number to work with the program, if you are finished, then dial 7:\n" +
+                "1.\tShow the entire list of school equipment\n" +
                 "2.\tSearch equipment:\n" +
                 "•\tBy serial number\n" +
                 "\n" +

@@ -50,15 +50,15 @@ public class Deliveryman {
     }
 
     public static void menu() {
-        System.out.println("1. Show a list of equipment for delivery (Shows a list of equipment for delivery from the \"Ordered Equipment\" file)\n" +
-                "2. Show delivered equipment (Shows a list of delivered equipment from the \"Delivered Equipment\" file)\n" +
+        System.out.println("Please dial the menu number to work with the program, if you are finished, then dial 7.\n" +
+                "1. Show a list of equipment for delivery\n" +
+                "2. Show delivered equipment\n" +
                 "3. Deliver equipment\n" +
                 "   What equipment was delivered? Enter the name of the equipment or its serial number\n" +
-                "   (The name or serial number of the equipment that was written by the delivery person is entered into the file and at the same time the record of this equipment is deleted from the \"Ordered Equipment\" file)\n" +
-                "4. Show the number of delivered equipment (Shows the number of delivered equipment from the \"Delivered Equipment\" file)\n" +
-                "5. Show the number of equipment ordered (Shows the number of equipment for delivery from \"Ordered Equipment\" file)\n" +
-                "6. Show my earnings (Shows how much was received for each equipment from the \"Delivered Equipment\" file, the delivery rate can be set at your discretion)\n" +
-                "7. Exit (Exits the program)\n");
+                "4. Show the number of delivered equipment\n" +
+                "5. Show the number of equipment ordered\n" +
+                "6. Show my earnings\n" +
+                "7. Exit\n");
     }
 
 
@@ -74,11 +74,11 @@ public class Deliveryman {
         }else if (deliverymanChoise == 3) {
             System.out.println("What equipment was delivered? Enter the name of the equipment or its serial number\n");
             String equipmentIdentifier = scan.nextLine();
-            System.out.println(CRUDUtils.saveDeliveredEquipment(equipmentIdentifier));
+            System.out.println("Delivered equipment" + CRUDUtils.saveDeliveredEquipment(equipmentIdentifier));
         } else if (deliverymanChoise == 2) {
-            System.out.println(CRUDUtils.getDeliveredEquipmentData());
+            System.out.println("Delivered equipment" + CRUDUtils.getDeliveredEquipmentData());
         } else if (deliverymanChoise == 1) {
-            System.out.println(CRUDUtils.getOrederedEquipmentNameList());
+            System.out.println("A list of equipment for delivery\n" + CRUDUtils.getOrederedEquipmentNameList());
         }
     }
 }
