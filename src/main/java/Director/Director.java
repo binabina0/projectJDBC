@@ -63,17 +63,15 @@ public class Director {
         Scanner scan = new Scanner(System.in);
 
         if (directorChoise == 5) {
-            System.out.println("A list of equipment:\n" + Zavkhoz.CRUDUtils.listOfEquipment());
+            System.out.println("Report about equipment:\n" + Zavkhoz.CRUDUtils.allEquipmentData());
         } else if (directorChoise == 4) {
-            System.out.println("The number of equipment\n" + CRUDUtilsForDirector.listOfEquipmentQuantity());
+            System.out.println("Equipment with the minimum quantity\n" + CRUDUtilsForDirector.minEquipmentQuantity());
         }else if (directorChoise == 3) {
-            System.out.println("What equipment was delivered? Enter the name of the equipment or its serial number\n");
-            String equipmentIdentifier = scan.nextLine();
-            System.out.println("Delivered equipment" + CRUDUtils.saveDeliveredEquipment(equipmentIdentifier));
+            System.out.println("The Equipment with the minimum quantity\n" + CRUDUtilsForDirector.maxEquipmentQuantity());
         } else if (directorChoise == 2) {
-            System.out.println("Delivered equipment" + CRUDUtils.getDeliveredEquipmentData());
+            System.out.println("The number of equipment" + CRUDUtilsForDirector.listOfEquipmentQuantity());
         } else if (directorChoise == 1) {
-            System.out.println("A list of equipment for delivery\n" + CRUDUtils.getOrederedEquipmentNameList());
+            System.out.println("A list of equipment:\n" + Zavkhoz.CRUDUtils.listOfEquipment());
         }
     }
 }

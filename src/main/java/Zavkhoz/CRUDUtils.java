@@ -231,8 +231,8 @@ public class CRUDUtils {
             preparedStatement.setString(1, equipment);
             preparedStatement.executeUpdate();
 
-            PreparedStatement allStudents = connection.prepareStatement("SELECT * FROM students");
-            ResultSet rs = allStudents.executeQuery();
+            PreparedStatement allSelect = connection.prepareStatement("SELECT * FROM students");
+            ResultSet rs = allSelect.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("id");
