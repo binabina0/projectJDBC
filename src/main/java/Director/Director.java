@@ -65,7 +65,7 @@ public class Director {
         if (directorChoise == 5) {
             System.out.println("A list of equipment:\n" + Zavkhoz.CRUDUtils.listOfEquipment());
         } else if (directorChoise == 4) {
-            System.out.println("The number of equipment\n" + Zavkhoz.CRUDUtils.);
+            System.out.println("The number of equipment\n" + CRUDUtilsForDirector.listOfEquipmentQuantity());
         }else if (directorChoise == 3) {
             System.out.println("What equipment was delivered? Enter the name of the equipment or its serial number\n");
             String equipmentIdentifier = scan.nextLine();
