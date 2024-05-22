@@ -7,7 +7,7 @@ public class OrderedEquipmentName {
     private String serialNumber;
     private String equipmentName;
     private String category;
-    private Date purshaseDate;
+    private Date orderedDate;
 
     public OrderedEquipmentName() {
     }
@@ -51,12 +51,12 @@ public class OrderedEquipmentName {
         this.category = category;
     }
 
-    public Date getPurshedDate() {
-        return purshaseDate;
+    public Date getOrderedDate() {
+        return orderedDate;
     }
 
-    public void setPurshaseDate(Date purshaseDate) {
-        this.purshaseDate = purshaseDate;
+    public void setOrderedDate(Date orderedDate) {
+        this.orderedDate = orderedDate;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class OrderedEquipmentName {
                 serialNumber + '\t' +
                 equipmentName + '\t' +
                 category + '\t' +
-                purshaseDate + '\n';
+                orderedDate + '\n';
 
     }
 }

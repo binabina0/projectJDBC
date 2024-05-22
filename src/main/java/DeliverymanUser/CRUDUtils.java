@@ -137,7 +137,7 @@ public class CRUDUtils {
                             selectedById.getDate("purchase_date")
                     );
                 }
-
+            if (equipment != null) {
                 try (PreparedStatement deleteStmt = connection.prepareStatement(DELETE_EQUIPMENT_BY_NAME_OR_SN)) {
                     deleteStmt.setString(1, equipment.getEquipmentName());
                     deleteStmt.setString(2, equipment.getSerialNumber());
@@ -170,6 +170,9 @@ public class CRUDUtils {
                                 rs.getDate("delivered_date")
                         ));
                 }
+            }
+            } else {
+                System.out.println("Equipment not found in the ordered list.");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
