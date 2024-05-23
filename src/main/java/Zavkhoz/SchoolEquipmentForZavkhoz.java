@@ -73,13 +73,12 @@ public class SchoolEquipmentForZavkhoz {
 
     @Override
     public String toString() {
-        return "SchoolEquipment{" +
-                "id=" + id +
-                ", serialNumber='" + serialNumber + '\'' +
-                ", equipmentName='" + equipmentName + '\'' +
-                ", category='" + category + '\'' +
-                ", quantity=" + quantity +
-                ", purchaseDate=" + purchaseDate +
-                '}';
+        return id + '\t' +
+                serialNumber + '\t' +
+                equipmentName + '\t' +
+                category + '\t' +
+                quantity + '\t' +
+                purchaseDate + '\n';
+
     }
 }

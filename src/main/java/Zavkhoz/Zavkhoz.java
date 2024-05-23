@@ -54,12 +54,8 @@ public class Zavkhoz {
         System.out.println("Please dial the menu number to work with the program, if you are finished, then dial 7:\n" +
                 "1.\tShow the entire list of school equipment\n" +
                 "2.\tSearch equipment:\n" +
-                "•\tBy serial number\n" +
-                "\n" +
-                "•\tBy name\n" +
                 "3.\tShow equipment report\n" +
                 "4.\tPlace an order for equipment:\n" +
-                "•\tPlease write what equipment you would like to order:\n" +
                 "5.\tView the list of ordered equipment\n" +
                 "6.\tDelete order:\n" +
                 "7.\tExit\n");
@@ -92,11 +88,7 @@ public class Zavkhoz {
             System.out.print("Enter price: ");
             BigDecimal price = BigDecimal.valueOf(scan.nextDouble());
 
-            System.out.print("Enter delivery rate: ");
-            BigDecimal deliveryRate = BigDecimal.valueOf(scan.nextDouble());
-
             System.out.print("Enter total price: ");
-            BigDecimal totalPrice = BigDecimal.valueOf(scan.nextDouble());
 
             System.out.print("Enter ordered date (yyyy-mm-dd): ");
             String orderedDateString = scan.next();
@@ -108,8 +100,6 @@ public class Zavkhoz {
             equipment.setCategory(category);
             equipment.setQuantity(quantity);
             equipment.setPrice(price);
-            equipment.setDeliveryRate(deliveryRate);
-            equipment.setTotalPrice(totalPrice);
             equipment.setOrderedDate(orderedDate);
             System.out.println(CRUDUtils.saveOrderedEquipment(equipment));
         } else if (zavkhozChoise == 3) {

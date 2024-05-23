@@ -1,5 +1,7 @@
 package app;
 import DeliverymanUser.Deliveryman;
+import Director.CRUDUtilsForDirector;
+import Director.Director;
 import Zavkhoz.Zavkhoz;
 import Zavkhoz.CRUDUtils;
 
@@ -45,7 +47,6 @@ public class app {
             } else {
                 System.out.println("Incorrect password.");
             }
-
         } else if (type.equals("Deliveryman")) {
             String deliverymanPassword = DeliverymanUser.CRUDUtils.deliverymanPassword(username);
             if (password.equals(deliverymanPassword)) {
@@ -68,76 +69,28 @@ public class app {
             } else {
                 System.out.println("Incorrect password.");
             }
+        } else if (type.equals("Director")) {
+            String directorPassword = CRUDUtilsForDirector.directorPassword(username);
+            if (password.equals(directorPassword)) {
+                System.out.println("Greetings dear Director!\n");
+                while (userChoice != 6) {
+                    Director.menu();
+                    userChoice = scan.nextInt();
+                    scan.nextLine();
+                    if (userChoice == 6) {
+                        System.out.println("The program is completed, we will be glad to see you back!");
+                        System.exit(0);
+                    }
+                    while (userChoice > 6 || userChoice < 1) {
+                        System.out.println("Enter command only from 1 to 6");
+                        userChoice = scan.nextInt();
+                        scan.nextLine();
+                    }
+                    Director.directorActions(userChoice);
+                }
+            } else {
+                System.out.println("Incorrect password.");
+            }
         }
     }
 }
-//        else if(role == 3)
-//        {
-//            String studentPassword = getStudentPassword(username);
-//            int student_id = getStudentIdAccordingToStudentsUsername(username);
-//            if(password.equals(studentPassword))
-//            {
-//                System.out.println("Dear student welcome to the grading system!\nChoose what do you want to do and enter the number of the command:");
-//                while(quit.equals("no"))
-//                {
-//                    student.menu();
-//                    int studentChoise = scan.nextInt();
-//                    scan.nextLine();
-//                    student.executeActionAccordingToStudentsChoise(studentChoise,student_id);
-//                    System.out.println("Do you want to quit?(yes/no)");
-//                    quit = scan.nextLine();
-//                    if(quit.equals("yes"))
-//                    {
-//                        System.out.println("Goodbye");
-//                        System.exit(0);
-//                    }
-//
-//                }
-//
-//            }
-//        }
-//        else if(role == 4)
-//        {
-//            String parentPassword = getParentPassword(username);
-//            if(password.equals(parentPassword))
-//            {
-//                System.out.println("Dear parent welcome to the grading system!\nChoose what do you want to do and enter the number of the command:");
-//                while (quit.equals("no"))
-//                {
-//                    parent.menu();
-//                    int parentChoise = scan.nextInt();
-//                    scan.nextLine();
-//                    int child_id = getChildIdAccordingToParentUserName(username);
-//                    parent.executeActionAccordingToParentsChoise(parentChoise,child_id); quit = scan.nextLine();
-//                    if(quit.equals("yes"))
-//                    {
-//                        System.out.println("Goodbye");
-//                        System.exit(0);
-//                    }
-//                }
-//
-//            }
-//        }
-//
-//    }
-//
-//    public static String getZavkhozPassword(String username)
-//    {
-//        String password = null;
-//
-//        String SELECT_ZAVKHOZ_PASSWORD = "SELECT * FROM Zavkhoz WHERE zavkhoz_username = ?";
-//
-//
-//        try (Connection connection = (Connection) DBUtils.getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ZAVKHOZ_PASSWORD))
-//        {
-//            preparedStatement.setString(1, username);
-//            ResultSet rs = preparedStatement.executeQuery();
-//
-//            rs.next();
-//            password = rs.getString("admin_password");
-//        }catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return password;
-//    }

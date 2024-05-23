@@ -14,7 +14,7 @@ public class CRUDUtils {
     private static final String SELECT_BY_SERIAL_NUMBER = "SELECT * FROM SchoolEquipment WHERE serial_number = ?";
     private static final String SELECT_ALL_EQUIPMENT = "SELECT * FROM SchoolEquipment";
     private static final String SELECT_ALL_ORDERED_EQUIPMENT = "SELECT * FROM OrderedSchoolEquipment";
-    private static final String INSERT_EQUIPMENT = "INSERT INTO OrderedSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivery_rate, total_price, purchase_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_EQUIPMENT = "INSERT INTO OrderedSchoolEquipment(serial_number, equipment_name, category, quantity, price, ordered_date) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String DELETE_EQUIPMENT = "DELETE FROM OrderedEquipment WHERE id = ?";
     private static final String SELECT_PASSWORD = "SELECT zavkhoz_password FROM Zavkhoz WHERE zavkhoz_username = ?";
 
@@ -169,8 +169,6 @@ public class CRUDUtils {
             preparedStatement.setString(3, equipment.getCategory());
             preparedStatement.setInt(4, equipment.getQuantity());
             preparedStatement.setBigDecimal(5, equipment.getPrice());
-            preparedStatement.setBigDecimal(6, equipment.getDeliveryRate());
-            preparedStatement.setBigDecimal(7, equipment.getTotalPrice());
             preparedStatement.setDate(8, equipment.getOrderedDate());
             preparedStatement.executeUpdate();
 
@@ -244,7 +242,6 @@ public class CRUDUtils {
                 BigDecimal deliveryRate = rs.getBigDecimal("delivery_rate");
                 BigDecimal totalPrice = rs.getBigDecimal("total_price");
                 Date orderedDate = rs.getDate("ordered_date");
-
                 updatedEquipments.add(new OrderedSchoolEquipment(id, serialNumber, equipmentName, category, quantity, price, deliveryRate, totalPrice, orderedDate));
             }
         }

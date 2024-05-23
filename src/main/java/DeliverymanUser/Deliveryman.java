@@ -54,7 +54,6 @@ public class Deliveryman {
                 "1. Show a list of equipment for delivery\n" +
                 "2. Show delivered equipment\n" +
                 "3. Deliver equipment\n" +
-                "   What equipment was delivered? Enter the name of the equipment or its serial number\n" +
                 "4. Show the number of delivered equipment\n" +
                 "5. Show the number of equipment ordered\n" +
                 "6. Show my earnings\n" +

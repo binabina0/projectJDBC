@@ -51,12 +51,12 @@ public class Director {
 
     public static void menu() {
         System.out.println("Please dial the menu number to work with the program, if you are finished, then dial 6:\n" +
-                "1. Show a list of equipment (Shows a list of equipment thatis in the educational center)\n" +
-                "2. Show the number of equipment (Shows the number ofequipment by category)\n" +
+                "1. Show a list of equipment\n" +
+                "2. Show the number of equipment\n" +
                 "3. Show equipment with the maximum quantity\n" +
                 "4. Show equipment with the minimum quantity\n" +
                 "5. Show purchasing report about equipment\n" +
-                "6. Exit (Exits the program)");
+                "6. Exit");
     }
 
     public static void directorActions(int directorChoise) {
