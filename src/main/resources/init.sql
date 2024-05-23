@@ -23,7 +23,7 @@ CREATE TABLE SchoolEquipment (
     quantity INT,
     price DECIMAL(10, 2),
     delivery_rate DECIMAL(10, 2) AS (0.02 * price),
-    total_price DECIMAL(10, 2) AS (price + (0.02 * price)),
+    total_price DECIMAL(10, 2) AS (quantity * (price + (0.02 * price))),
     purchase_date DATE
 );
 
@@ -60,7 +60,7 @@ CREATE TABLE OrderedSchoolEquipment (
     quantity INT,
     price DECIMAL(10, 2),
     delivery_rate DECIMAL(10, 2) AS (0.02 * price),
-    total_price DECIMAL(10, 2) AS (price + (0.02 * price)),
+    total_price DECIMAL(10, 2) AS (quantity * (price + (0.02 * price))),
     ordered_date DATE
 );
 
@@ -90,7 +90,7 @@ CREATE TABLE DeliveredSchoolEquipment (
     quantity INT,
     price DECIMAL(10, 2),
     delivery_rate DECIMAL(10, 2) AS (0.02 * price),
-    total_price DECIMAL(10, 2) AS (price + (0.02 * price)),
+    total_price DECIMAL(10, 2) AS (quantity * (0.02 * price)),
     delivered_date DATE
 );
 

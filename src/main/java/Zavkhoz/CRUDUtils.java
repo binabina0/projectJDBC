@@ -15,7 +15,7 @@ public class CRUDUtils {
     private static final String SELECT_ALL_EQUIPMENT = "SELECT * FROM SchoolEquipment";
     private static final String SELECT_ALL_ORDERED_EQUIPMENT = "SELECT * FROM OrderedSchoolEquipment";
     private static final String INSERT_EQUIPMENT = "INSERT INTO OrderedSchoolEquipment(serial_number, equipment_name, category, quantity, price, ordered_date) VALUES(?, ?, ?, ?, ?, ?)";
-    private static final String DELETE_EQUIPMENT = "DELETE FROM OrderedEquipment WHERE id = ?";
+    private static final String DELETE_EQUIPMENT = "DELETE FROM OrderedSchoolEquipment WHERE equipment_name = ?";
     private static final String SELECT_PASSWORD = "SELECT zavkhoz_password FROM Zavkhoz WHERE zavkhoz_username = ?";
 
     public static List<SchoolEquipment> getEquipmentData(String query) {
@@ -169,7 +169,7 @@ public class CRUDUtils {
             preparedStatement.setString(3, equipment.getCategory());
             preparedStatement.setInt(4, equipment.getQuantity());
             preparedStatement.setBigDecimal(5, equipment.getPrice());
-            preparedStatement.setDate(8, equipment.getOrderedDate());
+            preparedStatement.setDate(6, equipment.getOrderedDate());
             preparedStatement.executeUpdate();
 
             PreparedStatement orderedEquipments = connection.prepareStatement(SELECT_ALL_ORDERED_EQUIPMENT);
@@ -229,7 +229,7 @@ public class CRUDUtils {
             preparedStatement.setString(1, equipment);
             preparedStatement.executeUpdate();
 
-            PreparedStatement allSelect = connection.prepareStatement("SELECT * FROM students");
+            PreparedStatement allSelect = connection.prepareStatement("SELECT * FROM OrderedSchoolEquipment");
             ResultSet rs = allSelect.executeQuery();
 
             while (rs.next()) {

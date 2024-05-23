@@ -12,7 +12,7 @@ import java.util.List;
 public class CRUDUtils {
     private static final String SELECT_ALL_ORDERED_EQUIPMENT = "SELECT * FROM OrderedSchoolEquipment";
     private static final String SELECT_ALL_DELIVERED_EQUIPMENT = "SELECT * FROM DeliveredSchoolEquipment";
-    private static final String INSERT_EQUIPMENT = "INSERT INTO DeliveredSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivery_rate, total_price, purchase_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_EQUIPMENT = "INSERT INTO DeliveredSchoolEquipment(serial_number, equipment_name, category, quantity, price, delivered_date) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String SELECT_PASSWORD = "SELECT deliveryman_password FROM Deliveryman WHERE deliveryman_username = ?";
 
     private static final String DELETE_EQUIPMENT_BY_NAME_OR_SN = "DELETE FROM OrderedSchoolEquipment WHERE equipment_name = ? OR serial_number = ?";
@@ -66,8 +66,8 @@ public class CRUDUtils {
                 String equipmentName = rs.getString("equipment_name");
                 String category = rs.getString("category");
                 int quantity = rs.getInt("quantity");
-                Date purchaseDate = rs.getDate("purchase_date");
-                orderedEquipmentQuantities.add(new OrderedEquipmentQuantity(id, serialNumber, equipmentName, category, quantity, purchaseDate));
+                Date orderedDate = rs.getDate("ordered_date");
+                orderedEquipmentQuantities.add(new OrderedEquipmentQuantity(id, serialNumber, equipmentName, category, quantity, orderedDate));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -134,7 +134,7 @@ public class CRUDUtils {
                             selectedById.getBigDecimal("price"),
                             selectedById.getBigDecimal("delivery_rate"),
                             selectedById.getBigDecimal("total_price"),
-                            selectedById.getDate("purchase_date")
+                            selectedById.getDate("ordered_date")
                     );
                 }
             if (equipment != null) {
@@ -149,9 +149,7 @@ public class CRUDUtils {
                     insertStmt.setString(3, equipment.getCategory());
                     insertStmt.setInt(4, equipment.getQuantity());
                     insertStmt.setBigDecimal(5, equipment.getPrice());
-                    insertStmt.setBigDecimal(6, equipment.getDeliveryRate());
-                    insertStmt.setBigDecimal(7, equipment.getTotalPrice());
-                    insertStmt.setDate(8, new Date(System.currentTimeMillis()));
+                    insertStmt.setDate(6, new Date(System.currentTimeMillis()));
                     insertStmt.executeUpdate();
 
 

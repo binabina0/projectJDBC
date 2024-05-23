@@ -12,11 +12,12 @@ public class OrderedEquipmentName {
     public OrderedEquipmentName() {
     }
 
-    public OrderedEquipmentName(int id, String serialNumber, String equipmentName, String category, Date purshaseDate) {
+    public OrderedEquipmentName(int id, String serialNumber, String equipmentName, String category, Date orderedDate) {
         this.id = id;
         this.serialNumber = serialNumber;
         this.equipmentName = equipmentName;
         this.category = category;
+        this.orderedDate = orderedDate;
     }
 
     public int getId() {

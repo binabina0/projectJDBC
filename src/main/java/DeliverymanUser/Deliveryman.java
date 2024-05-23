@@ -73,9 +73,9 @@ public class Deliveryman {
         }else if (deliverymanChoise == 3) {
             System.out.println("What equipment was delivered? Enter the name of the equipment or its serial number\n");
             String equipmentIdentifier = scan.nextLine();
-            System.out.println("Delivered equipment" + CRUDUtils.saveDeliveredEquipment(equipmentIdentifier));
+            System.out.println("Delivered equipment\n" + CRUDUtils.saveDeliveredEquipment(equipmentIdentifier));
         } else if (deliverymanChoise == 2) {
-            System.out.println("Delivered equipment" + CRUDUtils.getDeliveredEquipmentData());
+            System.out.println("Delivered equipment\n" + CRUDUtils.getDeliveredEquipmentData());
         } else if (deliverymanChoise == 1) {
             System.out.println("A list of equipment for delivery\n" + CRUDUtils.getOrederedEquipmentNameList());
         }

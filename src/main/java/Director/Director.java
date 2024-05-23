@@ -67,9 +67,9 @@ public class Director {
         } else if (directorChoise == 4) {
             System.out.println("Equipment with the minimum quantity\n" + CRUDUtilsForDirector.minEquipmentQuantity());
         }else if (directorChoise == 3) {
-            System.out.println("The Equipment with the minimum quantity\n" + CRUDUtilsForDirector.maxEquipmentQuantity());
+            System.out.println("The Equipment with the maximum quantity\n" + CRUDUtilsForDirector.maxEquipmentQuantity());
         } else if (directorChoise == 2) {
-            System.out.println("The number of equipment" + CRUDUtilsForDirector.listOfEquipmentQuantity());
+            System.out.println("The number of equipment\n" + CRUDUtilsForDirector.listOfEquipmentQuantity());
         } else if (directorChoise == 1) {
             System.out.println("A list of equipment:\n" + Zavkhoz.CRUDUtils.listOfEquipment());
         }
