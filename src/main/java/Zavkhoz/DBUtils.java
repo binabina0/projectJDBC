@@ -6,15 +6,13 @@ import java.sql.SQLException;
 
 
 public class DBUtils {
-    private static String dbURL = "jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:init.sql'";
-    private static String dbUsername = "sa";
-    private static String dbPassword = "";
+    static String JDBC_url = "jdbc:postgresql://localhost:5432/equipments?currentSchema=public&user=postgres&password=123";
 
     public static Connection getConnection() {
 
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+            connection = DriverManager.getConnection(JDBC_url);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
