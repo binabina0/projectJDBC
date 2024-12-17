@@ -1,23 +1,35 @@
 package controller;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
-
-import java.awt.*;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 public class Controller {
-    private Button btnAdd;
 
     @FXML
-    private TextField txtName;
+    private ResourceBundle resources;
 
     @FXML
-    private TableView<?> tableEquipment;
+    private URL location;
 
     @FXML
-    private void addEquipment() {
-        String name = txtName.getText();
-        // Add logic to insert into the database using your existing CRUD functionality
-        System.out.println("Added: " + name);
+    private TextField inputText;
+
+    @FXML
+    private VBox outputText;
+
+    @FXML
+    private TableView<?> tables;
+
+    @FXML
+    void initialize() {
+        assert inputText != null : "fx:id=\"inputText\" was not injected: check your FXML file 'sample.fxml'.";
+        assert outputText != null : "fx:id=\"outputText\" was not injected: check your FXML file 'sample.fxml'.";
+        assert tables != null : "fx:id=\"tables\" was not injected: check your FXML file 'sample.fxml'.";
+
     }
+
 }
