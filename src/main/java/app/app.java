@@ -14,16 +14,16 @@ import java.util.Scanner;
 
 import static javafx.application.Application.launch;
 
-public class app extends Application {
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600); // Set initial size
-        primaryStage.setTitle("School Equipment Inventory");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
+public class app {
+//    public void start(Stage primaryStage) throws IOException {
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), 800, 600); // Set initial size
+//        primaryStage.setTitle("School Equipment Inventory");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+//    }
     public static void main(String[] args) {
-        launch(args);
+//        launch(args);
         Scanner scan = new Scanner(System.in);
         System.out.println("To run the program, please enter your account type: \n Zavkhoz \n Deliveryman \n Director");
         String type = scan.next();
